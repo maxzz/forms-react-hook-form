@@ -34,7 +34,7 @@ function Form() {
 
 export function Page1_Form() {
     return (
-        <div className="px-4 min-w-[420px] h-full">
+        <div className="px-4 min-w-[420px]">
             <Form />
         </div>
     );
