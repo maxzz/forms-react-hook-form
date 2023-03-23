@@ -1,7 +1,7 @@
 export function App() {
     return (
-        <div className="App">
-            start
+        <div className="">
+            <div className="">start</div>
         </div>
     );
 }

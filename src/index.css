@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  display: flex;
-  place-items: center;
-  min-height: 100vh;
+@layer components {
+    body {
+        @apply min-h-screen flex items-center bg-yellow-200;
+    }
 }
