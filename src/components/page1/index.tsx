@@ -22,10 +22,10 @@ function Form() {
     return (
         <form className="grid gap-y-2" onSubmit={handleSubmit(onSubmit)}>
 
-            <input defaultValue="test" {...register("example")} />
+            <input className="px-4 py-2 rounded" defaultValue="test" {...register("example")} />
 
             <div className="grid">
-                <input {...register("exampleRequired", { required: true })} />
+                <input className="px-4 py-2 rounded" {...register("exampleRequired", { required: true })} />
 
                 <span className={classNames(
                     "text-xs pb-4 text-red-500",
@@ -33,14 +33,14 @@ function Form() {
                 )}>This field is required</span>
             </div>
 
-            <input className="px-2 py-1 border-slate-400 border rounded" type="submit" />
+            <input className="place-self-center px-2 py-2 border-slate-400 border rounded" type="submit" />
         </form>
     );
 }
 
 export function Page1_Form() {
     return (
-        <div className="px-4 py-3 max-w-[420px]">
+        <div className="px-4 py-3 w-[420px] bg-yellow-300">
             <Form />
         </div>
     );
