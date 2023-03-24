@@ -9,7 +9,7 @@ type Inputs = {
 
 const defaultValues: Inputs = {
     example: '123',
-    exampleRequired: 'required'
+    exampleRequired: ''
 };
 
 function Form() {
@@ -22,15 +22,15 @@ function Form() {
     return (
         <form className="p-4 border-yellow-500 border rounded grid gap-y-2" onSubmit={handleSubmit(onSubmit)}>
 
-            <input className="px-4 py-2 rounded" defaultValue="test" {...register("example")} />
+            <div className="grid">
+                <input className="px-4 py-2 rounded" defaultValue="test" {...register("example", { required: true })} />
+                <span className={classNames("text-xs pb-4 text-red-500 select-none", !errors.example && 'invisible',)}>This field is required</span>
+            </div>
+
 
             <div className="grid">
                 <input className="px-4 py-2 rounded" {...register("exampleRequired", { required: true })} />
-
-                <span className={classNames(
-                    "text-xs pb-4 text-red-500 select-none",
-                    !errors.exampleRequired && 'invisible',
-                )}>This field is required</span>
+                <span className={classNames("text-xs pb-4 text-red-500 select-none", !errors.exampleRequired && 'invisible',)}>This field is required</span>
             </div>
 
             <input className="place-self-center px-2 py-2 border-slate-400 border rounded" type="submit" />
