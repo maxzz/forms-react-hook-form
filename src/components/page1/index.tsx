@@ -20,7 +20,7 @@ function Form() {
     console.log(watch("example"));
 
     return (
-        <form className="grid gap-y-2" onSubmit={handleSubmit(onSubmit)}>
+        <form className="p-4 border-yellow-500 border rounded grid gap-y-2" onSubmit={handleSubmit(onSubmit)}>
 
             <input className="px-4 py-2 rounded" defaultValue="test" {...register("example")} />
 
@@ -28,7 +28,7 @@ function Form() {
                 <input className="px-4 py-2 rounded" {...register("exampleRequired", { required: true })} />
 
                 <span className={classNames(
-                    "text-xs pb-4 text-red-500",
+                    "text-xs pb-4 text-red-500 select-none",
                     !errors.exampleRequired && 'invisible',
                 )}>This field is required</span>
             </div>
@@ -40,7 +40,7 @@ function Form() {
 
 export function Page1_Form() {
     return (
-        <div className="px-4 py-3 w-[420px] bg-yellow-300">
+        <div className="w-[420px] flex items-center justify-center bg-yellow-300">
             <Form />
         </div>
     );
