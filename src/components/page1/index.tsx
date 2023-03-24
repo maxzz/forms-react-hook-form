@@ -25,12 +25,12 @@ function Form() {
 
             <div className="grid">
                 <input className="px-4 py-2 rounded" defaultValue="test" {...register("example", { required: true })} />
-                <span className={classNames("text-xs text-red-500 select-none", !errors.example && 'invisible',)}>This field is required</span>
+                <span className={classNames("text-xs text-[red] select-none", !errors.example && 'invisible',)}>This field is required</span>
             </div>
 
             <div className="grid">
                 <input className="px-4 py-2 rounded" {...register("exampleRequired", { required: true })} />
-                <span className={classNames("text-xs text-red-500 select-none", !errors.exampleRequired && 'invisible',)}>This field is required</span>
+                <span className={classNames("text-xs text-[red] select-none", !errors.exampleRequired && 'invisible',)}>This field is required</span>
             </div>
 
             <input className="place-self-center mt-4 px-2 py-2 border-yellow-500 border rounded active:scale-y-[.97]" type="submit" />
