@@ -76,13 +76,14 @@ function Form() {
 
                             {/* Optional fields */}
 
-                            <label className="flex items-center gap-x-2">
+                            <label className="pt-2 flex items-center gap-x-2">
                                 <input className="w-5 h-5 accent-yellow-900" type="checkbox" {...register('moreDetails')} />
                                 <span>More controls..</span>
                             </label>
+
                             {moreDetail && (
                                 <div>
-                                    <label className="grid">
+                                    <label className="mt-1 grid">
                                         <span>Optional data</span>
                                         <input className="px-4 py-2 rounded" {...register('interests')} />
                                     </label>
@@ -106,7 +107,7 @@ function Form() {
                 </div>
             </div>
 
-            <div className="">
+            <div className="py-4 text-sm">
                 <pre>{JSON.stringify(getValues(), null, 4)}</pre>
             </div>
         </div>
