@@ -106,17 +106,13 @@ function Form() {
 
                             <div className="flex items-center justify-end gap-x-2">
                                 <button
-                                    className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-[.97]"
-                                    value="Reset" onClick={() => reset({
-                                        example: '321',
-                                        exampleRequired: '345',
-                                        radioIn: '2',
-                                    })}
+                                    className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-95"
+                                    value="Reset" onClick={() => reset(defaultValues)}
                                 >
                                     Reset
                                 </button>
                                 <input
-                                    className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-[.97]"
+                                    className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-95"
                                     type="submit" value="OK"
                                 />
                             </div>
