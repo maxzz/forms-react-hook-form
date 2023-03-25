@@ -1,5 +1,5 @@
 import React, { HTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
-import { useForm, SubmitHandler, UseFormRegister, FieldErrors } from "react-hook-form";
+import { useForm, SubmitHandler, UseFormRegister, FieldErrors, UseFormRegisterReturn } from "react-hook-form";
 import { classNames } from '../../utils/classnames';
 
 type Inputs = {
@@ -13,18 +13,22 @@ type Inputs = {
 
 const defaultValues: Inputs = {
     example: 'Max',
-    exampleRequired: '123',
+    exampleRequired: '',
     radioIn: '3',
     title: 'Dr',
     moreDetails: false,
     interests: 'Some additional interests'
 };
 
-function Input({ name, register, errors }: { name: keyof Inputs; register: UseFormRegister<Inputs>, errors: FieldErrors<Inputs>; } & InputHTMLAttributes<HTMLInputElement>) {
+function Input({ registered, errors }: { registered: UseFormRegisterReturn, errors: FieldErrors<Inputs>; } & InputHTMLAttributes<HTMLInputElement>) {
+    const name = registered.name as keyof Inputs;
+    const error = errors[name]?.message;
+    
+    console.log('name', name, JSON.stringify(errors[name]?.message), errors);
     return (
         <div className="grid">
-            <input className="px-4 py-2 rounded" {...register(name, { required: 'This field is required' })} />
-            <span className={classNames("text-xs text-[red] select-none", !errors[name] && 'invisible',)}>{errors[name]?.message}</span>
+            <input className="px-4 py-2 rounded" {...registered} />
+            <span className={classNames("text-xs text-[red] select-none", !error && 'invisible',)}>{error}&nbsp;</span>
         </div>
     );
 }
@@ -32,9 +36,11 @@ function Input({ name, register, errors }: { name: keyof Inputs; register: UseFo
 function Form() {
     const { register, handleSubmit, watch, reset, getValues, formState: { errors } } = useForm({ defaultValues });
 
-    const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+    function onSubmit(data: any) {
+        return console.log(data);
+    }
 
-    console.log(watch("example"));
+    console.log(`watch("example")='${watch("example")}'`);
 
     const moreDetail = watch("moreDetails");
 
@@ -49,7 +55,7 @@ function Form() {
                         <div className="p-4">
                             {/* Simple inputs */}
 
-                            <Input name="example" register={register} errors={errors} />
+                            <Input name="example" registered={register('example', { required: 'This field is required' })} errors={errors} />
                             {/* <div className="grid">
                                 <input className="px-4 py-2 rounded" {...register("example", { required: true })} defaultValue="test from def. value" />
                                 <span className={classNames("text-xs text-[red] select-none", !errors.example && 'invisible',)}>This field is required</span>
