@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes, ReactNode } from 'react';
+import React, { ButtonHTMLAttributes, HTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes, ReactNode } from 'react';
 import { useForm, SubmitHandler, UseFormRegister, FieldErrors, UseFormRegisterReturn } from "react-hook-form";
 import { classNames } from '../../utils/classnames';
 
@@ -55,6 +55,21 @@ function Radio({ registered, label, value }: { registered: UseFormRegisterReturn
     );
 }
 
+function Button({ children, ...rest }: ButtonHTMLAttributes<HTMLButtonElement>) {
+    return (
+        <button className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded select-none active:scale-y-95" {...rest}>
+            {children}
+        </button>
+    );
+}
+
+const selectOptions: SelectOption[] = [
+    { label: 'Mr', value: 'Mr' },
+    { label: 'Mrs', value: 'Mrs' },
+    { label: 'Miss', value: 'Miss' },
+    { label: 'Dr', value: 'Dr' },
+];
+
 function Form() {
     const { register, handleSubmit, watch, reset, getValues, formState: { errors } } = useForm({ defaultValues });
 
@@ -85,15 +100,7 @@ function Form() {
 
                             <label className="flex items-center space-x-1 select-none">
                                 <span>Title</span>
-                                <Select
-                                    registered={register('title')}
-                                    options={[
-                                        { label: 'Mr', value: 'Mr' },
-                                        { label: 'Mrs', value: 'Mrs' },
-                                        { label: 'Miss', value: 'Miss' },
-                                        { label: 'Dr', value: 'Dr' },
-                                    ]}
-                                />
+                                <Select registered={register('title')} options={selectOptions} />
                             </label>
 
                             {/* Radio */}
@@ -120,16 +127,18 @@ function Form() {
                             {/* Buttons */}
 
                             <div className="flex items-center justify-end gap-x-2">
-                                <button
+                                <Button onClick={() => reset(defaultValues)}>Reset</Button>
+                                {/* <button
                                     className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded select-none active:scale-y-95"
-                                    value="Reset" onClick={() => reset(defaultValues)}
+                                    onClick={() => reset(defaultValues)}
                                 >
                                     Reset
-                                </button>
-                                <input
+                                </button> */}
+                                <Button type="submit">OK</Button>
+                                {/* <input
                                     className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded select-none active:scale-y-95"
                                     type="submit" value="OK"
-                                />
+                                /> */}
                             </div>
                         </div>
                     </form>
