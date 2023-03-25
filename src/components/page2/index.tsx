@@ -20,16 +20,32 @@ const defaultValues: Inputs = {
     interests: 'Some additional interests'
 };
 
-function Input({ registered, errors }: { registered: UseFormRegisterReturn, errors: FieldErrors<Inputs>; } & InputHTMLAttributes<HTMLInputElement>) {
+function Input({ registered, errors }: { registered: UseFormRegisterReturn, errors: FieldErrors<Inputs>; }) {
     const name = registered.name as keyof Inputs;
     const error = errors[name]?.message;
-    
-    console.log('name', name, JSON.stringify(errors[name]?.message), errors);
     return (
         <div className="grid">
             <input className="px-4 py-2 rounded" {...registered} />
             <span className={classNames("text-xs text-[red] select-none", !error && 'invisible',)}>{error}&nbsp;</span>
         </div>
+    );
+}
+
+type SelectOption = {
+    label: React.ReactNode;
+    value: string | number | string[];
+};
+
+function Select({ registered, errors, options }: { registered: UseFormRegisterReturn, errors: FieldErrors<Inputs>; options: SelectOption[]; }) {
+    return (
+        <label className="flex items-center space-x-1 select-none">
+            <span>Title</span>
+            <select className="px-4 py-2 h-10 rounded" {...registered}>
+                {options.map(({label, value}, idx) => (
+                    <option value={value} key={idx}>{label}</option>    
+                ))}
+            </select>
+        </label>
     );
 }
 
@@ -50,26 +66,25 @@ function Form() {
             <div className="flex-1">
                 <div className="border-yellow-700 border rounded shadow overflow-hidden">
                     <form className="pt-0.5 bg-yellow-400 grid gap-y-2 " onSubmit={handleSubmit(onSubmit)}>
-                        <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter">Form caption</div>
+
+                        <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter select-none">Form caption</div>
 
                         <div className="p-4">
                             {/* Simple inputs */}
 
-                            <Input name="example" registered={register('example', { required: 'This field is required' })} errors={errors} />
-                            {/* <div className="grid">
-                                <input className="px-4 py-2 rounded" {...register("example", { required: true })} defaultValue="test from def. value" />
-                                <span className={classNames("text-xs text-[red] select-none", !errors.example && 'invisible',)}>This field is required</span>
-                            </div>
-                            */}
-
-                            <div className="grid">
-                                <input className="px-4 py-2 rounded" {...register("exampleRequired", { required: true })} />
-                                <span className={classNames("text-xs text-[red] select-none", !errors.exampleRequired && 'invisible',)}>This field is required</span>
-                            </div>
+                            <Input registered={register('example', { required: 'This field is required' })} errors={errors} />
+                            <Input registered={register('exampleRequired', { required: 'This field is required' })} errors={errors} />
 
                             {/* Select */}
 
-                            <label className="flex items-center space-x-1">
+                            <Select registered={register('title')} errors={errors} options={[
+                                { label: 'Mr', value: 'Mr' },
+                                { label: 'Mrs', value: 'Mrs' },
+                                { label: 'Miss', value: 'Miss' },
+                                { label: 'Dr', value: 'Dr' },
+                            ]} />
+
+                            {/* <label className="flex items-center space-x-1">
                                 <span>Title</span>
                                 <select className="px-4 py-2 h-10 rounded" {...register('title')}>
                                     <option value="Mr">Mr</option>
@@ -77,16 +92,16 @@ function Form() {
                                     <option value="Miss">Miss</option>
                                     <option value="Dr">Dr</option>
                                 </select>
-                            </label>
+                            </label> */}
 
                             {/* Radio */}
 
                             <div className="my-2 flex items-center gap-x-4">
-                                <label className="flex items-center gap-x-1">
+                                <label className="flex items-center gap-x-1 select-none">
                                     <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value="2" {...register("radioIn", { required: true })} />
                                     <span>One</span>
                                 </label>
-                                <label className="flex items-center gap-x-1">
+                                <label className="flex items-center gap-x-1 select-none">
                                     <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value="3" {...register("radioIn", { required: true })} />
                                     <span>Two</span>
                                 </label>
@@ -94,7 +109,7 @@ function Form() {
 
                             {/* Optional fields */}
 
-                            <label className="pt-2 flex items-center gap-x-2">
+                            <label className="pt-2 flex items-center gap-x-2 select-none">
                                 <input className="w-5 h-5 accent-yellow-900" type="checkbox" {...register('moreDetails')} />
                                 <span>More controls..</span>
                             </label>
@@ -112,13 +127,13 @@ function Form() {
 
                             <div className="flex items-center justify-end gap-x-2">
                                 <button
-                                    className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-95"
+                                    className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded select-none active:scale-y-95"
                                     value="Reset" onClick={() => reset(defaultValues)}
                                 >
                                     Reset
                                 </button>
                                 <input
-                                    className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-95"
+                                    className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded select-none active:scale-y-95"
                                     type="submit" value="OK"
                                 />
                             </div>
