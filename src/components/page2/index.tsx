@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes, HTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes, ReactNode } from 'react';
-import { useForm, SubmitHandler, UseFormRegister, FieldErrors, UseFormRegisterReturn } from "react-hook-form";
+import { useForm, SubmitHandler, UseFormRegister, FieldErrors, UseFormRegisterReturn, FieldValues } from "react-hook-form";
 import { classNames } from '../../utils/classnames';
 
 type Inputs = {
@@ -20,13 +20,13 @@ const defaultValues: Inputs = {
     interests: 'Some additional interests'
 };
 
-function Input({ registered, errors }: { registered: UseFormRegisterReturn; errors: FieldErrors<Inputs>; }) {
+function Input<T extends FieldValues>({ registered, errors }: { registered: UseFormRegisterReturn; errors: FieldErrors<T>; }) {
     const name = registered.name as keyof Inputs;
     const error = errors[name]?.message;
     return (
         <div className="grid">
             <input className="px-4 py-2 rounded" {...registered} />
-            <span className={classNames("text-xs text-[red] select-none", !error && 'invisible',)}>{error}&nbsp;</span>
+            <span className={classNames("text-xs text-[red] select-none", !error && 'invisible',)}><>{error}&nbsp;</></span>
         </div>
     );
 }
@@ -36,7 +36,7 @@ type SelectOption = {
     value: string | number | string[];
 };
 
-function Select({ registered, errors, options }: { registered: UseFormRegisterReturn; errors?: FieldErrors<Inputs>; options: SelectOption[]; }) {
+function Select<T extends FieldValues>({ registered, errors, options }: { registered: UseFormRegisterReturn; errors?: FieldErrors<T>; options: SelectOption[]; }) {
     return (
         <select className="px-4 py-2 h-10 rounded" {...registered}>
             {options.map(({ label, value }, idx) => (
