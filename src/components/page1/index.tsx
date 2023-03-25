@@ -8,6 +8,7 @@ type Inputs = {
     radioIn: string;
     title: string;
     moreDetails: boolean;
+    interests: string;
 };
 
 const defaultValues: Inputs = {
@@ -16,6 +17,7 @@ const defaultValues: Inputs = {
     radioIn: '3',
     title: 'Dr',
     moreDetails: false,
+    interests: 'Some additional interests'
 };
 
 function Form() {
@@ -25,10 +27,14 @@ function Form() {
 
     console.log(watch("example"));
 
+    const moreDetail = watch("moreDetails");
+
     return (
         <div className="px-4 w-full">
             <form className="p-4 bg-yellow-400 border-yellow-500 border rounded shadow grid gap-y-2" onSubmit={handleSubmit(onSubmit)}>
                 <div className="pb-4">Form caption</div>
+
+                {/* Simple inputs */}
 
                 <div className="grid">
                     <input className="px-4 py-2 rounded" defaultValue="test" {...register("example", { required: true })} />
@@ -40,16 +46,7 @@ function Form() {
                     <span className={classNames("text-xs text-[red] select-none", !errors.exampleRequired && 'invisible',)}>This field is required</span>
                 </div>
 
-                <div className="flex items-center gap-x-4">
-                    <label className="flex items-center gap-x-1">
-                        <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value="2" {...register("radioIn", { required: true })} />
-                        <span>One</span>
-                    </label>
-                    <label className="flex items-center gap-x-1">
-                        <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value="3" {...register("radioIn", { required: true })} />
-                        <span>Two</span>
-                    </label>
-                </div>
+                {/* Select */}
 
                 <label className="flex items-center space-x-1">
                     <span>Title</span>
@@ -61,10 +58,36 @@ function Form() {
                     </select>
                 </label>
 
+                {/* Radio */}
+
+                <div className="my-2 flex items-center gap-x-4">
+                    <label className="flex items-center gap-x-1">
+                        <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value="2" {...register("radioIn", { required: true })} />
+                        <span>One</span>
+                    </label>
+                    <label className="flex items-center gap-x-1">
+                        <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value="3" {...register("radioIn", { required: true })} />
+                        <span>Two</span>
+                    </label>
+                </div>
+
+                {/* Optional fields */}
+
                 <label className="flex items-center gap-x-2">
                     <input className="w-5 h-5 accent-yellow-900" type="checkbox" {...register('moreDetails')} />
                     <span>More controls..</span>
                 </label>
+
+                {moreDetail && (
+                    <div>
+                        <label>
+                            <span>Interests</span>
+                            <input {...register('interests')} />
+                        </label>
+                    </div>
+                )}
+
+                {/* Buttons */}
 
                 <div className="flex items-center justify-end gap-x-2">
                     <input
