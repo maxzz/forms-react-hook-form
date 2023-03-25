@@ -6,12 +6,14 @@ type Inputs = {
     example: string,
     exampleRequired: string,
     radioIn: string;
+    title: string;
 };
 
 const defaultValues: Inputs = {
     example: '123',
-    exampleRequired: '',
+    exampleRequired: '11',
     radioIn: '3',
+    title: 'Dr'
 };
 
 function Form() {
@@ -36,12 +38,28 @@ function Form() {
                     <span className={classNames("text-xs text-[red] select-none", !errors.exampleRequired && 'invisible',)}>This field is required</span>
                 </div>
 
-                <div className="grid place-items-start grid-cols-2">
-                    <input type="radio" className="px-4 py-2 rounded" value="2" {...register("radioIn", { required: true })} />
-                    <input type="radio" className="px-4 py-2 rounded" value="3" {...register("radioIn", { required: true })} />
+                <div className="flex items-center gap-x-4">
+                    <label className="flex items-center gap-x-1">
+                        <input type="radio" className="px-4 py-2 rounded" value="2" {...register("radioIn", { required: true })} />
+                        <span>One</span>
+                    </label>
+                    <label className="flex items-center gap-x-1">
+                        <input type="radio" className="px-4 py-2 rounded" value="3" {...register("radioIn", { required: true })} />
+                        <span>Two</span>
+                    </label>
                 </div>
 
-                <input className="place-self-center mt-4 px-2 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-[.97]" type="submit" />
+                <label className="flex items-center space-x-1">
+                    <span>Title</span>
+                    <select className="px-4 py-2 h-10 rounded" {...register('title')}>
+                        <option value="Mr">Mr</option>
+                        <option value="Mrs">Mrs</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Dr">Dr</option>
+                    </select>
+                </label>
+
+                <input className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-[.97]" type="submit" value="OK" />
             </form>
             <div className="">
                 <pre>{JSON.stringify(getValues(), null, 4)}</pre>
