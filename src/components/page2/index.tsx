@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes } from 'react';
+import React, { HTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes, ReactNode } from 'react';
 import { useForm, SubmitHandler, UseFormRegister, FieldErrors, UseFormRegisterReturn } from "react-hook-form";
 import { classNames } from '../../utils/classnames';
 
@@ -20,7 +20,7 @@ const defaultValues: Inputs = {
     interests: 'Some additional interests'
 };
 
-function Input({ registered, errors }: { registered: UseFormRegisterReturn, errors: FieldErrors<Inputs>; }) {
+function Input({ registered, errors }: { registered: UseFormRegisterReturn; errors: FieldErrors<Inputs>; }) {
     const name = registered.name as keyof Inputs;
     const error = errors[name]?.message;
     return (
@@ -36,15 +36,21 @@ type SelectOption = {
     value: string | number | string[];
 };
 
-function Select({ registered, errors, options }: { registered: UseFormRegisterReturn, errors: FieldErrors<Inputs>; options: SelectOption[]; }) {
+function Select({ registered, errors, options }: { registered: UseFormRegisterReturn; errors?: FieldErrors<Inputs>; options: SelectOption[]; }) {
     return (
-        <label className="flex items-center space-x-1 select-none">
-            <span>Title</span>
-            <select className="px-4 py-2 h-10 rounded" {...registered}>
-                {options.map(({label, value}, idx) => (
-                    <option value={value} key={idx}>{label}</option>    
-                ))}
-            </select>
+        <select className="px-4 py-2 h-10 rounded" {...registered}>
+            {options.map(({ label, value }, idx) => (
+                <option value={value} key={idx}>{label}</option>
+            ))}
+        </select>
+    );
+}
+
+function Radio({ registered, label, value }: { registered: UseFormRegisterReturn; label: ReactNode; value: string; }) {
+    return (
+        <label className="flex items-center gap-x-1 select-none">
+            <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value={value} {...registered} />
+            <span>{label}</span>
         </label>
     );
 }
@@ -77,34 +83,33 @@ function Form() {
 
                             {/* Select */}
 
-                            <Select registered={register('title')} errors={errors} options={[
-                                { label: 'Mr', value: 'Mr' },
-                                { label: 'Mrs', value: 'Mrs' },
-                                { label: 'Miss', value: 'Miss' },
-                                { label: 'Dr', value: 'Dr' },
-                            ]} />
-
-                            {/* <label className="flex items-center space-x-1">
+                            <label className="flex items-center space-x-1 select-none">
                                 <span>Title</span>
-                                <select className="px-4 py-2 h-10 rounded" {...register('title')}>
-                                    <option value="Mr">Mr</option>
-                                    <option value="Mrs">Mrs</option>
-                                    <option value="Miss">Miss</option>
-                                    <option value="Dr">Dr</option>
-                                </select>
-                            </label> */}
+                                <Select
+                                    registered={register('title')}
+                                    options={[
+                                        { label: 'Mr', value: 'Mr' },
+                                        { label: 'Mrs', value: 'Mrs' },
+                                        { label: 'Miss', value: 'Miss' },
+                                        { label: 'Dr', value: 'Dr' },
+                                    ]}
+                                />
+                            </label>
 
                             {/* Radio */}
 
                             <div className="my-2 flex items-center gap-x-4">
-                                <label className="flex items-center gap-x-1 select-none">
+                                <Radio label="One" value="2" registered={register("radioIn", { required: true })} />
+                                <Radio label="Two" value="3" registered={register("radioIn", { required: true })} />
+
+                                {/* <label className="flex items-center gap-x-1 select-none">
                                     <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value="2" {...register("radioIn", { required: true })} />
                                     <span>One</span>
                                 </label>
                                 <label className="flex items-center gap-x-1 select-none">
                                     <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value="3" {...register("radioIn", { required: true })} />
                                     <span>Two</span>
-                                </label>
+                                </label> */}
                             </div>
 
                             {/* Optional fields */}
