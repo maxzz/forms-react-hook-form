@@ -77,7 +77,8 @@ function Form() {
         return console.log(data);
     }
 
-    console.log(`watch("example")='${watch("example")}'`);
+    const displayValues = watch();
+    console.log(`watch='${JSON.stringify(displayValues, null, 4)}'`);
 
     const moreDetail = watch("moreDetails");
 
@@ -128,17 +129,7 @@ function Form() {
 
                             <div className="flex items-center justify-end gap-x-2">
                                 <Button onClick={() => reset(defaultValues)}>Reset</Button>
-                                {/* <button
-                                    className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded select-none active:scale-y-95"
-                                    onClick={() => reset(defaultValues)}
-                                >
-                                    Reset
-                                </button> */}
                                 <Button type="submit">OK</Button>
-                                {/* <input
-                                    className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded select-none active:scale-y-95"
-                                    type="submit" value="OK"
-                                /> */}
                             </div>
                         </div>
                     </form>
@@ -146,7 +137,8 @@ function Form() {
             </div>
 
             <div className="py-4 text-sm">
-                <pre>{JSON.stringify(getValues(), null, 4)}</pre>
+                {/* <pre>{JSON.stringify(getValues(), null, 4)}</pre> */}
+                <pre>{JSON.stringify(displayValues, null, 4)}</pre>
             </div>
         </div>
     );
