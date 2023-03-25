@@ -20,11 +20,11 @@ const defaultValues: Inputs = {
     interests: 'Some additional interests'
 };
 
-function Input({name, register, errors}: {name: keyof Inputs; register: UseFormRegister<Inputs>, errors: FieldErrors<Inputs>} & InputHTMLAttributes<HTMLInputElement>) {
+function Input({ name, register, errors }: { name: keyof Inputs; register: UseFormRegister<Inputs>, errors: FieldErrors<Inputs>; } & InputHTMLAttributes<HTMLInputElement>) {
     return (
         <div className="grid">
-            <input className="px-4 py-2 rounded" {...register(name, { required: true })} />
-            <span className={classNames("text-xs text-[red] select-none", !errors[name] && 'invisible',)}>This field is required</span>
+            <input className="px-4 py-2 rounded" {...register(name, { required: 'This field is required' })} />
+            <span className={classNames("text-xs text-[red] select-none", !errors[name] && 'invisible',)}>errors[name]</span>
         </div>
     );
 }
@@ -105,10 +105,16 @@ function Form() {
                             {/* Buttons */}
 
                             <div className="flex items-center justify-end gap-x-2">
-                                <input
+                                <button
                                     className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-[.97]"
-                                    type="reset" value="Reset" onClick={() => reset()}
-                                />
+                                    value="Reset" onClick={() => reset({
+                                        example: '321',
+                                        exampleRequired: '345',
+                                        radioIn: '2',
+                                    })}
+                                >
+                                    Reset
+                                </button>
                                 <input
                                     className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-[.97]"
                                     type="submit" value="OK"
