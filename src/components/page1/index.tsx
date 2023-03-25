@@ -17,7 +17,7 @@ const defaultValues: Inputs = {
 };
 
 function Form() {
-    const { register, handleSubmit, watch, getValues, formState: { errors } } = useForm({ defaultValues });
+    const { register, handleSubmit, watch, reset, getValues, formState: { errors } } = useForm({ defaultValues });
 
     const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
 
@@ -59,7 +59,10 @@ function Form() {
                     </select>
                 </label>
 
-                <input className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-[.97]" type="submit" value="OK" />
+                <div className="flex items-center justify-end gap-x-2">
+                    <input className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-[.97]" type="reset" value="Reset" onClick={() => reset()} />
+                    <input className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-[.97]" type="submit" value="OK" />
+                </div>
             </form>
             <div className="">
                 <pre>{JSON.stringify(getValues(), null, 4)}</pre>
