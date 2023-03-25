@@ -24,7 +24,7 @@ function Input({ name, register, errors }: { name: keyof Inputs; register: UseFo
     return (
         <div className="grid">
             <input className="px-4 py-2 rounded" {...register(name, { required: 'This field is required' })} />
-            <span className={classNames("text-xs text-[red] select-none", !errors[name] && 'invisible',)}>errors[name]</span>
+            <span className={classNames("text-xs text-[red] select-none", !errors[name] && 'invisible',)}>{errors[name]?.message}</span>
         </div>
     );
 }
