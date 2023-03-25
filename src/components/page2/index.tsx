@@ -101,15 +101,6 @@ function Form() {
                             <div className="my-2 flex items-center gap-x-4">
                                 <Radio label="One" value="2" registered={register("radioIn", { required: true })} />
                                 <Radio label="Two" value="3" registered={register("radioIn", { required: true })} />
-
-                                {/* <label className="flex items-center gap-x-1 select-none">
-                                    <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value="2" {...register("radioIn", { required: true })} />
-                                    <span>One</span>
-                                </label>
-                                <label className="flex items-center gap-x-1 select-none">
-                                    <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value="3" {...register("radioIn", { required: true })} />
-                                    <span>Two</span>
-                                </label> */}
                             </div>
 
                             {/* Optional fields */}
@@ -119,14 +110,12 @@ function Form() {
                                 <span>More controls..</span>
                             </label>
 
-                            {moreDetail && (
-                                <div>
-                                    <label className="mt-1 grid">
-                                        <span>Optional data</span>
-                                        <input className="px-4 py-2 rounded" {...register('interests')} />
-                                    </label>
-                                </div>
-                            )}
+                            <div className={classNames(!moreDetail && 'invisible')}>
+                                <label className="mt-1 grid">
+                                    <span>Optional data</span>
+                                    <input className="px-4 py-2 rounded" {...register('interests')} />
+                                </label>
+                            </div>
 
                             {/* Buttons */}
 
