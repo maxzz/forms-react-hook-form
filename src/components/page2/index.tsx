@@ -71,23 +71,21 @@ const selectOptions: SelectOption[] = [
 ];
 
 function Form() {
-    const { register, handleSubmit, watch, reset, getValues, formState: { errors } } = useForm({ defaultValues });
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
 
     function onSubmit(data: any) {
         return console.log(data);
     }
 
     const displayValues = watch();
-    console.log(`watch='${JSON.stringify(displayValues, null, 4)}'`);
-
-    const moreDetail = watch("moreDetails");
+    const moreDetail = displayValues.moreDetails;
 
     return (
         <div className="px-4 pt-8 w-full h-full flex flex-col">
 
-            <div className="flex-1">
+            <div className="flex-1 grid place-items-center">
                 <div className="border-yellow-700 border rounded shadow overflow-hidden">
-                    <form className="pt-0.5 bg-yellow-400 grid gap-y-2 " onSubmit={handleSubmit(onSubmit)}>
+                    <form className="pt-0.5 w-[420px] bg-yellow-400 grid gap-y-2 " onSubmit={handleSubmit(onSubmit)}>
 
                         <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter select-none">Form caption</div>
 
@@ -137,7 +135,6 @@ function Form() {
             </div>
 
             <div className="py-4 text-sm">
-                {/* <pre>{JSON.stringify(getValues(), null, 4)}</pre> */}
                 <pre>{JSON.stringify(displayValues, null, 4)}</pre>
             </div>
         </div>
@@ -146,7 +143,7 @@ function Form() {
 
 export function Page2_Form() {
     return (
-        <div className="w-[420px] flex items-center justify-center text-yellow-900 bg-yellow-300">
+        <div className="flex items-center justify-center text-yellow-900 bg-yellow-300">
             <Form />
         </div>
     );
