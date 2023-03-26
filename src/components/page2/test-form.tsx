@@ -1,9 +1,10 @@
+import { HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
 import { classNames } from "../../utils/classnames";
-import { Input, Select, Radio, Button } from "./controls";
+import { Input, Select, Radio, Button, DebugDisplay } from "./controls";
 import { Inputs, selectOptions } from "./controls-data";
 
-export function TestForm2({defaultValues}: {defaultValues: Inputs}) {
+export function TestForm2({ defaultValues, className, ...rest }: { defaultValues: Inputs; } & HTMLAttributes<HTMLDivElement>) {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
 
     function onSubmit(data: any) {
@@ -14,7 +15,7 @@ export function TestForm2({defaultValues}: {defaultValues: Inputs}) {
     const moreDetail = displayValues.moreDetails;
 
     return (
-        <div className="px-4 pt-8 w-full h-full flex flex-col">
+        <div className={classNames("px-4 pt-8 w-full h-full flex flex-col", className)} {...rest}>
 
             <div className="flex-1 grid place-items-center">
                 <div className="border-yellow-700 border rounded shadow overflow-hidden">
@@ -67,9 +68,7 @@ export function TestForm2({defaultValues}: {defaultValues: Inputs}) {
                 </div>
             </div>
 
-            <div className="py-4 text-sm">
-                <pre>{JSON.stringify(displayValues, null, 4)}</pre>
-            </div>
+            <DebugDisplay displayValues={displayValues} />
         </div>
     );
 }

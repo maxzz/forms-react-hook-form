@@ -46,6 +46,14 @@ export function Button({ children, ...rest }: ButtonHTMLAttributes<HTMLButtonEle
     );
 }
 
+export function DebugDisplay({ displayValues }: { displayValues: unknown; }) {
+    return (
+        <div className="py-4 text-sm">
+            <pre>{JSON.stringify(displayValues, null, 4)}</pre>
+        </div>
+    );
+}
+
 export function ReactPortal({ children, containerSelector = "#portals-container" }: { children: ReactNode; containerSelector?: string | Element; }) {
     const el = typeof containerSelector === 'string' && document.querySelector(containerSelector);
     const containerEl = el || containerSelector as Element || document.body;
