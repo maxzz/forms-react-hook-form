@@ -2,7 +2,7 @@
 
 React forms with react-hook-form.
 
-![](src/assets/previews/2023-03-24_18-57-03.png)
+![](src/assets/previews/2023-03-25_16-26-00.png)
 
 ### Links, refs, credits
 
