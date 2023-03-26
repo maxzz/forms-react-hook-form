@@ -76,7 +76,7 @@ function Form() {
     );
 }
 
-function ReactPortal({ children, containerSelector }: { children: ReactNode; containerSelector?: string | Element; }) {
+function ReactPortal({ children, containerSelector = "#portals-container" }: { children: ReactNode; containerSelector?: string | Element; }) {
     const el = typeof containerSelector === 'string' && document.querySelector(containerSelector);
     const containerEl = el || containerSelector as Element || document.body;
     return createPortal(children, containerEl);
@@ -85,11 +85,8 @@ function ReactPortal({ children, containerSelector }: { children: ReactNode; con
 export function Page3_Form() {
     return (
         <div className="flex items-center justify-center text-yellow-900 bg-yellow-300">
-            {/* <ReactPortal containerSelector="#portals-container"> */}
             <ReactPortal>
-                <div className="absolute inset-0">
-                    <Form />
-                </div>
+                <Form />
             </ReactPortal>
         </div>
     );
