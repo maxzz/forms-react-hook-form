@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { FieldErrors, FieldValues, UseFormRegisterReturn } from "react-hook-form";
 import { classNames } from "../../utils/classnames";
 
@@ -43,4 +44,10 @@ export function Button({ children, ...rest }: ButtonHTMLAttributes<HTMLButtonEle
             {children}
         </button>
     );
+}
+
+export function ReactPortal({ children, containerSelector = "#portals-container" }: { children: ReactNode; containerSelector?: string | Element; }) {
+    const el = typeof containerSelector === 'string' && document.querySelector(containerSelector);
+    const containerEl = el || containerSelector as Element || document.body;
+    return createPortal(children, containerEl);
 }
