@@ -1,74 +1,7 @@
-import React, { ButtonHTMLAttributes, HTMLAttributes, HTMLInputTypeAttribute, InputHTMLAttributes, ReactNode } from 'react';
-import { useForm, SubmitHandler, UseFormRegister, FieldErrors, UseFormRegisterReturn, FieldValues } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { Input, Select, Radio, Button } from './controls';
 import { classNames } from '../../utils/classnames';
-
-type Inputs = {
-    example: string,
-    exampleRequired: string,
-    radioIn: string;
-    title: string;
-    moreDetails: boolean;
-    interests: string;
-};
-
-const defaultValues: Inputs = {
-    example: 'Max',
-    exampleRequired: '',
-    radioIn: '3',
-    title: 'Dr',
-    moreDetails: false,
-    interests: 'Some additional interests'
-};
-
-function Input<T extends FieldValues>({ registered, errors }: { registered: UseFormRegisterReturn; errors: FieldErrors<T>; }) {
-    const name = registered.name as keyof Inputs;
-    const error = errors[name]?.message;
-    return (
-        <div className="grid">
-            <input className="px-4 py-2 rounded" {...registered} />
-            <span className={classNames("text-xs text-[red] select-none", !error && 'invisible',)}><>{error}&nbsp;</></span>
-        </div>
-    );
-}
-
-type SelectOption = {
-    label: React.ReactNode;
-    value: string | number | string[];
-};
-
-function Select<T extends FieldValues>({ registered, errors, options }: { registered: UseFormRegisterReturn; errors?: FieldErrors<T>; options: SelectOption[]; }) {
-    return (
-        <select className="px-4 py-2 h-10 rounded" {...registered}>
-            {options.map(({ label, value }, idx) => (
-                <option value={value} key={idx}>{label}</option>
-            ))}
-        </select>
-    );
-}
-
-function Radio({ registered, label, value }: { registered: UseFormRegisterReturn; label: ReactNode; value: string; }) {
-    return (
-        <label className="flex items-center gap-x-1 select-none">
-            <input type="radio" className="px-4 py-2 w-5 h-5 accent-yellow-900 rounded" value={value} {...registered} />
-            <span>{label}</span>
-        </label>
-    );
-}
-
-function Button({ children, ...rest }: ButtonHTMLAttributes<HTMLButtonElement>) {
-    return (
-        <button className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded select-none active:scale-y-95" {...rest}>
-            {children}
-        </button>
-    );
-}
-
-const selectOptions: SelectOption[] = [
-    { label: 'Mr', value: 'Mr' },
-    { label: 'Mrs', value: 'Mrs' },
-    { label: 'Miss', value: 'Miss' },
-    { label: 'Dr', value: 'Dr' },
-];
+import { defaultValues, selectOptions } from "./controls-data";
 
 function Form() {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
