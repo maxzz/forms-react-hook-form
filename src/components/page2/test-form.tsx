@@ -1,8 +1,15 @@
 import { HTMLAttributes } from "react";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm, UseFormRegister } from "react-hook-form";
 import { classNames } from "../../utils/classnames";
 import { Input, Select, Radio, Button, DebugDisplay } from "./controls";
 import { Inputs, selectOptions } from "./controls-data";
+
+function NamesGroup({ register, errors }: { register: UseFormRegister<Inputs>; errors: FieldErrors<Inputs>; }) {
+    return (<>
+        <Input registered={register('firstName', { required: 'This field is required' })} errors={errors} />
+        <Input registered={register('lastName', { required: 'This field is required' })} errors={errors} />
+    </>);
+}
 
 export function TestForm2({ defaultValues, className, ...rest }: { defaultValues: Inputs; } & HTMLAttributes<HTMLDivElement>) {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
@@ -26,8 +33,7 @@ export function TestForm2({ defaultValues, className, ...rest }: { defaultValues
                         <div className="p-4">
                             {/* Simple inputs */}
 
-                            <Input registered={register('firstName', { required: 'This field is required' })} errors={errors} />
-                            <Input registered={register('lastName', { required: 'This field is required' })} errors={errors} />
+                            <NamesGroup register={register} errors={errors} />
 
                             {/* Select */}
 
