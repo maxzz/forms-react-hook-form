@@ -55,19 +55,30 @@ function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Inputs>; } &
     );
 }
 
-export function TestForm2({ defaultValues, className, ...rest }: { defaultValues: Inputs; } & HTMLAttributes<HTMLDivElement>) {
+export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }: { defaultValues: Inputs; onSave?: (data: Inputs) => void; onClose?: () => void; } & HTMLAttributes<HTMLDivElement>) {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
 
     function onSubmit(data: any) {
         return console.log(data);
     }
 
+    const forwardSave = (data: Inputs) => {
+        console.info("Submit ModalForm", data);
+        onSave?.(data);
+    };
+
+    const handleSubmitWithoutPropagation = (e: any) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleSubmit(forwardSave)(e);
+    };
+
     return (
         <div className={classNames("px-4 pt-8 w-full h-full flex flex-col", className)} {...rest}>
 
             <div className="flex-1 grid place-items-center">
                 <div className="border-yellow-700 border rounded shadow overflow-hidden">
-                    <form className="pt-0.5 w-[420px] bg-yellow-400 grid gap-y-2 " onSubmit={handleSubmit(onSubmit)}>
+                    <form className="pt-0.5 w-[420px] bg-yellow-400 grid gap-y-2 " onSubmit={(e) => handleSubmitWithoutPropagation(e)}>
 
                         <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter select-none">
                             Form caption
@@ -81,13 +92,14 @@ export function TestForm2({ defaultValues, className, ...rest }: { defaultValues
                             <div className="flex items-center justify-end gap-x-2">
                                 <Button onClick={() => reset(defaultValues)}>Reset</Button>
                                 <Button type="submit">OK</Button>
+
+                                {onClose && <Button onClick={(e) => { e.preventDefault(); e.stopPropagation(); onClose(); }}>Close</Button>}
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
 
-            {/* <DebugDisplay displayValues={displayValues} /> */}
             <LiveDebugDisplay watch={watch} />
         </div>
     );
