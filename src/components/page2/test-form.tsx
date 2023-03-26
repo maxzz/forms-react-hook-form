@@ -45,8 +45,14 @@ function OtherControlsGroup({ register, errors, watch }: { register: UseFormRegi
                 <input className="px-4 py-2 rounded" {...register('interests')} />
             </label>
         </div>
-
     </>);
+}
+
+function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Inputs>; } & HTMLAttributes<HTMLDivElement>) {
+    const displayValues = watch();
+    return (
+        <DebugDisplay displayValues={displayValues} {...rest} />
+    );
 }
 
 export function TestForm2({ defaultValues, className, ...rest }: { defaultValues: Inputs; } & HTMLAttributes<HTMLDivElement>) {
@@ -56,8 +62,6 @@ export function TestForm2({ defaultValues, className, ...rest }: { defaultValues
         return console.log(data);
     }
 
-    const displayValues = watch();
-
     return (
         <div className={classNames("px-4 pt-8 w-full h-full flex flex-col", className)} {...rest}>
 
@@ -65,7 +69,9 @@ export function TestForm2({ defaultValues, className, ...rest }: { defaultValues
                 <div className="border-yellow-700 border rounded shadow overflow-hidden">
                     <form className="pt-0.5 w-[420px] bg-yellow-400 grid gap-y-2 " onSubmit={handleSubmit(onSubmit)}>
 
-                        <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter select-none">Form caption</div>
+                        <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter select-none">
+                            Form caption
+                        </div>
 
                         <div className="p-4">
                             <OtherControlsGroup register={register} errors={errors} watch={watch} />
@@ -81,7 +87,8 @@ export function TestForm2({ defaultValues, className, ...rest }: { defaultValues
                 </div>
             </div>
 
-            <DebugDisplay displayValues={displayValues} />
+            {/* <DebugDisplay displayValues={displayValues} /> */}
+            <LiveDebugDisplay watch={watch} />
         </div>
     );
 }
