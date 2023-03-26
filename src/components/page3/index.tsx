@@ -76,18 +76,19 @@ function Form() {
     );
 }
 
-function ReactPortal({ children, containerSelector }: { children: ReactNode; containerSelector: string; }) {
-    const containerEl = document.querySelector(containerSelector);
-    if (!containerEl) {
-        throw new Error('No portal container');
-    }
+function ReactPortal({ children, containerSelector }: { children: ReactNode; containerSelector?: string; }) {
+    const containerEl = containerSelector && document.querySelector(containerSelector) || document.body;
+    // if (!containerEl) {
+    //     throw new Error('No portal container');
+    // }
     return createPortal(children, containerEl);
 }
 
 export function Page3_Form() {
     return (
         <div className="flex items-center justify-center text-yellow-900 bg-yellow-300">
-            <ReactPortal containerSelector="#portals-container">
+            {/* <ReactPortal containerSelector="#portals-container"> */}
+            <ReactPortal>
                 <Form />
             </ReactPortal>
         </div>
