@@ -1,8 +1,8 @@
 import { SelectOption } from "./controls";
 
 export type Inputs = {
-    example: string,
-    exampleRequired: string,
+    firstName: string,
+    lastName: string,
     radioIn: string;
     title: string;
     moreDetails: boolean;
@@ -10,8 +10,8 @@ export type Inputs = {
 };
 
 export const defaultValues: Inputs = {
-    example: 'Max',
-    exampleRequired: '',
+    firstName: 'Max',
+    lastName: '',
     radioIn: '3',
     title: 'Dr',
     moreDetails: false,

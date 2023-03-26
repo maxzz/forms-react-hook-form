@@ -26,8 +26,8 @@ export function TestForm2({ defaultValues, className, ...rest }: { defaultValues
                         <div className="p-4">
                             {/* Simple inputs */}
 
-                            <Input registered={register('example', { required: 'This field is required' })} errors={errors} />
-                            <Input registered={register('exampleRequired', { required: 'This field is required' })} errors={errors} />
+                            <Input registered={register('firstName', { required: 'This field is required' })} errors={errors} />
+                            <Input registered={register('lastName', { required: 'This field is required' })} errors={errors} />
 
                             {/* Select */}
 

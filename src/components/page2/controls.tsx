@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { FieldErrors, FieldValues, UseFormRegisterReturn } from "react-hook-form";
 import { classNames } from "../../utils/classnames";
@@ -46,9 +46,9 @@ export function Button({ children, ...rest }: ButtonHTMLAttributes<HTMLButtonEle
     );
 }
 
-export function DebugDisplay({ displayValues }: { displayValues: unknown; }) {
+export function DebugDisplay({ displayValues, className, ...rest }: { displayValues: unknown; } & HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className="py-4 text-sm">
+        <div className={classNames("py-4 text-sm", className)} {...rest}>
             <pre>{JSON.stringify(displayValues, null, 4)}</pre>
         </div>
     );
