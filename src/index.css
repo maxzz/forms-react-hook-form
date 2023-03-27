@@ -14,13 +14,15 @@
     }
     .float-label {
         @apply absolute
-            left-0
+            left-2
             peer-placeholder-shown:left-2
             
             top-1/2
             -translate-y-10
             peer-focus:-translate-y-10
             peer-placeholder-shown:-translate-y-1/2
+
+            w-max
 
             text-xs
             peer-focus:text-xs

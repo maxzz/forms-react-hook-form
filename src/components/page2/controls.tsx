@@ -1,9 +1,14 @@
-import { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, HTMLAttributes, HtmlHTMLAttributes, HTMLInputTypeAttribute, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { FieldErrors, FieldValues, UseFormRegisterReturn } from "react-hook-form";
 import { classNames } from "../../utils/classnames";
 
-export function Input<T extends FieldValues>({ registered, errors }: { registered: UseFormRegisterReturn; errors: FieldErrors<T>; }) {
+type RegisterAndErrors<T extends FieldValues> = {
+    registered: UseFormRegisterReturn;
+    errors: FieldErrors<T>;
+};
+
+export function Input<T extends FieldValues>({ registered, errors }: RegisterAndErrors<T>) {
     const name = registered.name as keyof T;
     const error = errors[name]?.message;
     return (
@@ -11,6 +16,27 @@ export function Input<T extends FieldValues>({ registered, errors }: { registere
             <input className="px-4 py-2 rounded" {...registered} />
             <span className={classNames("text-xs text-[red] select-none", !error && 'invisible',)}><>{error}&nbsp;</></span>
         </div>
+    );
+}
+
+export function Input2<T extends FieldValues>({ registered, errors, placeholder }: RegisterAndErrors<T> & { placeholder: string; }) {
+    const name = registered.name as keyof T;
+    const error = errors[name]?.message;
+    return (
+        <>
+            <label className="relative">
+                <input
+                    className="py-1.5 w-full h-10 peer float-input border-slate-300 border rounded"
+                    placeholder={placeholder}
+                    {...registered}
+                />
+                <div className="float-label">
+                    {placeholder}
+                </div>
+                
+            </label>
+            {/* <span className={classNames("text-xs text-[red] select-none", !error && 'invisible',)}><>{error}&nbsp;</></span> */}
+        </>
     );
 }
 
