@@ -7,3 +7,31 @@
         @apply min-h-screen flex items-center bg-yellow-200;
     }
 } */
+
+@layer components {
+    .float-input {
+        @apply px-2 py-2 border-b focus:border-b-2 focus:border-b-blue-600 focus:outline-none placeholder-transparent transition-colors;
+    }
+    .float-label {
+        @apply absolute
+            left-0
+            peer-placeholder-shown:left-2
+            
+            top-1/2
+            -translate-y-10
+            peer-focus:-translate-y-10
+            peer-placeholder-shown:-translate-y-1/2
+
+            text-xs
+            peer-focus:text-xs
+            peer-placeholder-shown:[font-size:inherit]
+            peer-placeholder-shown:[line-height:inherit]
+
+            [color:inherit]
+            peer-focus:[color:inherit]
+            peer-placeholder-shown:text-slate-400
+
+            cursor-text
+            transition-transform;
+    }
+}
