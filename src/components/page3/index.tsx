@@ -7,7 +7,7 @@ export function Page3_Form() {
         console.log('onClose');
     }
     return (
-        <div className="flex items-center justify-center text-yellow-900 bg-yellow-300">
+        <div className="flex items-center justify-center">
             <ReactPortal>
                 <TestForm2 defaultValues={defaultValues} onClose={onClose} />
             </ReactPortal>

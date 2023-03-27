@@ -75,7 +75,7 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
     };
 
     return (
-        <div className={classNames("px-4 pt-8 w-full h-full flex flex-col", className)} {...rest}>
+        <div className={classNames("px-4 pt-8 w-full h-full text-yellow-900 bg-gray-900/50 flex flex-col", className)} {...rest}>
 
             <div className="flex-1 grid place-items-center">
                 <div className="border-yellow-700 border rounded shadow overflow-hidden">
