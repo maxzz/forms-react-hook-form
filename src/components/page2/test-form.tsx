@@ -75,11 +75,11 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
     };
 
     return (
-        <div className={classNames("px-4 pt-8 w-full h-full text-yellow-900 bg-gray-900/50 flex flex-col", className)} {...rest}>
+        <div className={classNames("px-4 pt-8 w-full h-full text-yellow-900 bg-gray-900/50 flex flex-col animate-in fade-in duration-300", className)} {...rest}>
 
             <div className="flex-1 grid place-items-center">
-                <div className="border-yellow-700 border rounded shadow overflow-hidden">
-                    <form className="pt-0.5 w-[420px] bg-yellow-400 grid gap-y-2 " onSubmit={(e) => handleSubmitWithoutPropagation(e)}>
+                <div className="border-yellow-700 border rounded shadow overflow-hidden animate-in fade-in zoom-in ease-out duration-150">
+                    <form className="pt-0.5 w-[420px] bg-yellow-400 grid gap-y-2" onSubmit={(e) => handleSubmitWithoutPropagation(e)}>
 
                         <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter select-none">
                             Form caption
