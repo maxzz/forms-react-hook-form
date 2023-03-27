@@ -9,10 +9,10 @@
 } */
 
 @layer components {
-    .float-input {
-        @apply px-2 py-2 border-b focus:border-b-2 focus:border-b-blue-600 focus:outline-none placeholder-transparent transition-colors;
+    .input-under {
+        @apply px-2 py-2 border-2 focus:border-2 focus:border-b-blue-600 border-transparent focus:outline-none placeholder-transparent transition-colors;
     }
-    .float-label {
+    .input-under-label {
         @apply absolute
             left-2
             peer-placeholder-shown:left-2
@@ -29,9 +29,10 @@
             peer-placeholder-shown:[font-size:inherit]
             peer-placeholder-shown:[line-height:inherit]
 
-            [color:inherit]
-            peer-focus:[color:inherit]
-            peer-placeholder-shown:text-slate-400
+            opacity-50
+            text-inherit
+            peer-focus:opacity-100
+            peer-placeholder-shown:text-blue-400
 
             cursor-text
             transition-transform;

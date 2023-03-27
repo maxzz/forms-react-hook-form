@@ -23,19 +23,21 @@ export function InputFloat<T extends FieldValues>({ registered, errors, placehol
     const name = registered.name as keyof T;
     const error = errors[name]?.message;
     return (
-        <div className="">
-            <label className="relative">
+        <div className="relative mb-4">
+            <label className="relative text-yellow-900">
                 <input
-                    className="py-1.5 w-full h-10 peer float-input border rounded"
+                    className="input-under py-1.5 w-full h-10 peer border rounded"
                     placeholder={placeholder}
                     {...registered}
                 />
-                <div className="float-label peer-placeholder-shown:text-red-500">
+                <div className="input-under-label peer-placeholder-shown:text-yellow-600">
                     {placeholder}
                 </div>
-                
+
             </label>
-            <div className={classNames("h-4 text-xs text-[red] select-none", !error && 'invisible',)}><>{error}</></div>
+            <div className={classNames("absolute left-2 -bottom-2 px-1 py-px text-xs font-semibold text-yellow-50 bg-orange-500 rounded-sm select-none", !error && 'invisible',)}>
+                <>{error}</>
+            </div>
         </div>
     );
 }
