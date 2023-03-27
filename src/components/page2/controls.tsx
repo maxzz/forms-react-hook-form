@@ -19,24 +19,24 @@ export function Input<T extends FieldValues>({ registered, errors }: RegisterAnd
     );
 }
 
-export function Input2<T extends FieldValues>({ registered, errors, placeholder }: RegisterAndErrors<T> & { placeholder: string; }) {
+export function InputFloat<T extends FieldValues>({ registered, errors, placeholder }: RegisterAndErrors<T> & { placeholder: string; }) {
     const name = registered.name as keyof T;
     const error = errors[name]?.message;
     return (
-        <>
+        <div className="">
             <label className="relative">
                 <input
-                    className="py-1.5 w-full h-10 peer float-input border-slate-300 border rounded"
+                    className="py-1.5 w-full h-10 peer float-input border rounded"
                     placeholder={placeholder}
                     {...registered}
                 />
-                <div className="float-label">
+                <div className="float-label peer-placeholder-shown:text-red-500">
                     {placeholder}
                 </div>
                 
             </label>
-            {/* <span className={classNames("text-xs text-[red] select-none", !error && 'invisible',)}><>{error}&nbsp;</></span> */}
-        </>
+            <div className={classNames("h-4 text-xs text-[red] select-none", !error && 'invisible',)}><>{error}</></div>
+        </div>
     );
 }
 

@@ -1,12 +1,12 @@
 import { HTMLAttributes } from "react";
 import { FieldErrors, useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { classNames } from "../../utils/classnames";
-import { Input, Select, Radio, Button, DebugDisplay, Input2 } from "./controls";
+import { Input, Select, Radio, Button, DebugDisplay, InputFloat } from "./controls";
 import { Inputs, selectOptions } from "./controls-data";
 
 function NamesGroup({ register, errors }: { register: UseFormRegister<Inputs>; errors: FieldErrors<Inputs>; }) {
     return (<>
-        <Input2 registered={register('name', { required: 'This field is required' })} errors={errors} placeholder="User name" />
+        <InputFloat registered={register('name', { required: 'This field is required' })} errors={errors} placeholder="User name" />
         <Input registered={register('firstName', { required: 'This field is required' })} errors={errors} />
         <Input registered={register('lastName', { required: 'This field is required' })} errors={errors} />
     </>);
