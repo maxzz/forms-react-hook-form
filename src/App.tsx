@@ -4,8 +4,8 @@ import { Page3_Form } from "./components/page3";
 
 export function App() {
     return (
-        <div className="min-h-screen flex justify-center bg-yellow-200">
-            <div className="bg-green-500 w-8"></div>
+        <div className="min-h-screen grid grid-cols-[1fr_2rem_auto_2fr] bg-yellow-200">
+            <div className="col-start-2 bg-green-500 w-8"></div>
             <Page3_Form />
         </div>
     );
