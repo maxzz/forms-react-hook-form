@@ -1,9 +1,9 @@
 import { HTMLAttributes } from "react";
 import { FieldErrors, useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { classNames } from "../../utils/classnames";
-import { Input, Select, Radio, Button, DebugDisplay, InputFloat, Star } from "./controls";
+import { Input, Select, Radio, Button, DebugDisplay, InputFloat } from "./controls";
 import { Inputs, selectOptions } from "./controls-data";
-import { ReactComponent as Vessel7 } from '../../assets/sources/vessel7.svg';
+import { Star, Vessel7 } from "../ui/icons";
 
 function NamesGroup({ register, errors }: { register: UseFormRegister<Inputs>; errors: FieldErrors<Inputs>; }) {
     return (<>
@@ -85,13 +85,6 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
                             </div>
                             <div className="absolute top-0 right-0"><Star /></div>
                         </div>
-
-                        {/* <div className="px-4 py-2 bg-yellow-500 rounded-t select-none">
-                            <div className="text-xl font-semibold scale-y-110 tracking-tighter">
-                                Form caption
-                            </div>
-                            <Star />
-                        </div> */}
 
                         <div className="p-4">
                             <OtherControlsGroup register={register} errors={errors} watch={watch} />
