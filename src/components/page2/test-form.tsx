@@ -3,6 +3,7 @@ import { FieldErrors, useForm, UseFormRegister, UseFormWatch } from "react-hook-
 import { classNames } from "../../utils/classnames";
 import { Input, Select, Radio, Button, DebugDisplay, InputFloat, Star } from "./controls";
 import { Inputs, selectOptions } from "./controls-data";
+import { ReactComponent as Vessel7 } from '../../assets/sources/vessel7.svg';
 
 function NamesGroup({ register, errors }: { register: UseFormRegister<Inputs>; errors: FieldErrors<Inputs>; }) {
     return (<>
@@ -80,6 +81,7 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
                         <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter relative select-none">
                             <div className="">Form caption</div>
                             <div className="absolute top-0 right-0"><Star /></div>
+                            <div className="w-4 h-4"><Vessel7 /></div>
                         </div>
 
                         {/* <div className="px-4 py-2 bg-yellow-500 rounded-t select-none">
