@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 import { FieldErrors, useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { classNames } from "../../utils/classnames";
-import { Input, Select, Radio, Button, DebugDisplay, InputFloat } from "./controls";
+import { Input, Select, Radio, Button, DebugDisplay, InputFloat, Star } from "./controls";
 import { Inputs, selectOptions } from "./controls-data";
 
 function NamesGroup({ register, errors }: { register: UseFormRegister<Inputs>; errors: FieldErrors<Inputs>; }) {
@@ -59,10 +59,6 @@ function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Inputs>; } &
 export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }: { defaultValues: Inputs; onSave?: (data: Inputs) => void; onClose?: () => void; } & HTMLAttributes<HTMLDivElement>) {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
 
-    function onSubmit(data: any) {
-        return console.log(data);
-    }
-
     const forwardSave = (data: Inputs) => {
         console.info("Submit ModalForm", data);
         onSave?.(data);
@@ -79,11 +75,19 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
 
             <div className="flex-1 grid place-items-center">
                 <div className="border-yellow-700 border rounded shadow overflow-hidden animate-in fade-in zoom-in ease-out duration-150">
-                    <form className="pt-0.5 w-[420px] bg-yellow-400 grid gap-y-2" onSubmit={(e) => handleSubmitWithoutPropagation(e)}>
+                    <form className=" w-[420px] bg-yellow-400 grid gap-y-2" onSubmit={(e) => handleSubmitWithoutPropagation(e)}>
 
-                        <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter select-none">
-                            Form caption
+                        <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter relative select-none">
+                            <div className="">Form caption</div>
+                            <div className="absolute top-0 right-0"><Star /></div>
                         </div>
+
+                        {/* <div className="px-4 py-2 bg-yellow-500 rounded-t select-none">
+                            <div className="text-xl font-semibold scale-y-110 tracking-tighter">
+                                Form caption
+                            </div>
+                            <Star />
+                        </div> */}
 
                         <div className="p-4">
                             <OtherControlsGroup register={register} errors={errors} watch={watch} />
