@@ -6,6 +6,12 @@ export const enum ActivePage {
     page3,
 }
 
-export const appUi = proxy<{ activePage: ActivePage; }>({
-    activePage: ActivePage.page1,
+type AppUi = {
+    activePage: ActivePage;
+    page3open: boolean;
+}
+
+export const appUi = proxy<AppUi>({
+    activePage: ActivePage.page3,
+    page3open: true,
 });
