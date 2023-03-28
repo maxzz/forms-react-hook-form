@@ -79,9 +79,11 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
                     <form className=" w-[420px] bg-yellow-400 grid gap-y-2" onSubmit={(e) => handleSubmitWithoutPropagation(e)}>
 
                         <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter relative select-none">
-                            <div className="">Form caption</div>
+                            <div className="flex items-center space-x-2">
+                                <div className="">Form caption</div>
+                                <div className="w-4 h-4"><Vessel7 /></div>
+                            </div>
                             <div className="absolute top-0 right-0"><Star /></div>
-                            <div className="w-4 h-4"><Vessel7 /></div>
                         </div>
 
                         {/* <div className="px-4 py-2 bg-yellow-500 rounded-t select-none">
