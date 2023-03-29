@@ -3,7 +3,7 @@ import { FieldErrors, useForm, UseFormRegister, UseFormWatch } from "react-hook-
 import { classNames } from "../../utils/classnames";
 import { Input, Select, Radio, Button, DebugDisplay, InputFloat } from "./controls";
 import { Inputs, selectOptions } from "./controls-data";
-import { Star, Vessel7 } from "../ui/icons";
+import { IconClose, IconStar, IconVessel7 } from "../ui/icons";
 
 function NamesGroup({ register, errors }: { register: UseFormRegister<Inputs>; errors: FieldErrors<Inputs>; }) {
     return (<>
@@ -79,11 +79,14 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
                     <form className=" w-[420px] bg-yellow-400 grid gap-y-2" onSubmit={(e) => handleSubmitWithoutPropagation(e)}>
 
                         <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter relative select-none">
-                            <div className="flex items-center space-x-2">
-                                <div className="">Form caption</div>
-                                <div className="w-4 h-4"><Vessel7 /></div>
+                            <div className="flex items-center">
+                                <div className="mr-4">Form caption</div>
+                                <div className="w-4 h-4"><IconVessel7 /></div>
+                                <IconStar className="w-8 h-8 fill-slate-500 animate-in fade-in duration-1000" />
                             </div>
-                            <div className="absolute top-0 right-0"><Star /></div>
+                            <div className="absolute top-4 right-4">
+                                <div className="w-6 h-6"><IconClose /></div>
+                            </div>
                         </div>
 
                         <div className="p-4">

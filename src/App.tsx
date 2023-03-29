@@ -1,4 +1,4 @@
-import { useSnapshot } from "valtio/react";
+import { useSnapshot } from "valtio";
 import { Menu } from "./components/menu";
 import { Page1_Form } from "./components/page1SimplestForm";
 import { Page2_Form } from "./components/page2";
