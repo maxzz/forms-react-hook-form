@@ -60,15 +60,15 @@ function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Inputs>; } &
 export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }: { defaultValues: Inputs; onSave?: (data: Inputs) => void; onClose?: () => void; } & HTMLAttributes<HTMLDivElement>) {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
 
-    const forwardSave = (data: Inputs) => {
-        console.info("Submit ModalForm", data);
-        onSave?.(data);
-    };
-
-    const handleSubmitWithoutPropagation = (e: any) => {
+    const handleSubmitWithoutPropagation = (e: any, doSave: boolean) => {
         e.preventDefault();
         e.stopPropagation();
-        handleSubmit(forwardSave)(e);
+        doSave ? handleSubmit(forwardSave)(e) : onClose?.();
+
+        function forwardSave(data: Inputs) {
+            console.info("Submit ModalForm", data);
+            onSave?.(data);
+        }
     };
 
     return (
@@ -76,7 +76,7 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
 
             <div className="flex-1 grid place-items-center">
                 <div className="border-yellow-700 border rounded shadow overflow-hidden animate-in fade-in zoom-in ease-out duration-150">
-                    <form className=" w-[420px] bg-yellow-400 grid gap-y-2" onSubmit={(e) => handleSubmitWithoutPropagation(e)}>
+                    <form className=" w-[420px] bg-yellow-400 grid gap-y-2" onSubmit={(e) => handleSubmitWithoutPropagation(e, true)}>
 
                         <div className="px-4 py-2 text-xl font-semibold bg-yellow-500 rounded-t scale-y-110 tracking-tighter relative select-none">
                             <div className="flex items-center">
@@ -84,7 +84,7 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
                                 <div className="w-4 h-4"><IconVessel7 /></div>
                                 <IconStar className="w-8 h-8 fill-slate-500 animate-in fade-in duration-1000" />
                             </div>
-                            <div className="absolute top-4 right-4">
+                            <div className="absolute top-4 right-4" onClick={(e) => handleSubmitWithoutPropagation(e, false)}>
                                 <div className="w-6 h-6"><IconClose /></div>
                             </div>
                         </div>
@@ -98,7 +98,7 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
                                 <Button onClick={() => reset(defaultValues)}>Reset</Button>
                                 <Button type="submit">OK</Button>
 
-                                {onClose && <Button onClick={(e) => { e.preventDefault(); e.stopPropagation(); onClose(); }}>Close</Button>}
+                                {onClose && <Button onClick={(e) => handleSubmitWithoutPropagation(e, false)}>Close</Button>}
                             </div>
                         </div>
                     </form>
