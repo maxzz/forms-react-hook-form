@@ -84,9 +84,11 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
                                 <div className="w-4 h-4"><IconVessel7 /></div>
                                 <IconStar className="w-8 h-8 fill-slate-500 animate-in fade-in duration-1000" />
                             </div>
-                            <div className="px-3 h-full hover:bg-gray-900/10 flex items-center" onClick={(e) => handleSubmitWithoutPropagation(e, false)}>
-                                <div className="w-6 h-6"><IconClose /></div>
-                            </div>
+                            {onClose &&
+                                <div className="px-3 h-full hover:bg-gray-900/10 flex items-center" onClick={(e) => handleSubmitWithoutPropagation(e, false)}>
+                                    <div className="w-6 h-6"><IconClose /></div>
+                                </div>
+                            }
                         </div>
 
                         <div className="p-4">
