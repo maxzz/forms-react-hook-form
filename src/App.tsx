@@ -8,7 +8,7 @@ import { ActivePage, appUi } from "./store";
 export function App() {
     const store = useSnapshot(appUi);
     return (
-        <div className="min-h-screen grid grid-cols-[minmax(0,400px)_2rem_auto_2fr] bg-yellow-200">
+        <div className="min-h-screen grid grid-cols-[minmax(0,400px)_2rem_auto_2fr] text-yellow-900 bg-yellow-200">
             <Menu />
             <div className="col-start-2 bg-green-500 w-8"></div>
 
