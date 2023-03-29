@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path fill="#e6e6e6" d="M0 0h24v24H0z" />
+
+    <!-- AI curve shorthand -->
+    <!-- <path d="M0 12q12 0 12-12 0 12 12 12-12 0-12 12 0-12-12-12"/> -->
+
+    <!-- converted to curves -->
+    <path d="M 0 12 c 12 0 12 0 12 -12 c 0 12 0 12 12 12 c -12 0 -12 0 -12 12 c 0 -12 0 -12 -12 -12" />
+</svg>

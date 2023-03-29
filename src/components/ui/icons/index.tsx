@@ -5,9 +5,9 @@ export { ReactComponent as IconVessel7 } from '../../../assets/sources/vessel7.s
 
 export function IconStar({ title, ...rest }: HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg viewBox="-12 -12 24 24" {...rest}>
+        <svg viewBox="0 0 24 24" {...rest}>
             {title && <title>{title}</title>}
-            <path d="M -9 0 C 0 0 0 0 0 -9 C 0 0 0 0 9 0 C 0 0 0 0 0 9 C 0 0 0 0 -9 0" />
+            <path d="M 0 12 c 12 0 12 0 12 -12 c 0 12 0 12 12 12 c -12 0 -12 0 -12 12 c 0 -12 0 -12 -12 -12" />
         </svg>
     );
 }
