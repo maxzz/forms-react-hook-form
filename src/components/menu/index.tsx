@@ -1,5 +1,4 @@
-import { useSnapshot } from "valtio";
-import { ActivePage, appUi } from "@/store";
+import { ActivePage, appUi, useSnapshot } from "@/store";
 import { classNames } from "@/utils";
 
 function MenuItem({ name, label }: { name: ActivePage, label: string; }) {

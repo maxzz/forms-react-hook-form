@@ -1,4 +1,5 @@
-import { proxy } from "valtio";
+import { proxy } from 'valtio';
+export { useSnapshot } from 'valtio';
 
 export const enum ActivePage {
     page1,
@@ -9,7 +10,7 @@ export const enum ActivePage {
 type AppUi = {
     activePage: ActivePage;
     page3open: boolean;
-}
+};
 
 export const appUi = proxy<AppUi>({
     activePage: ActivePage.page3,

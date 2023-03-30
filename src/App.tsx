@@ -1,9 +1,8 @@
-import { useSnapshot } from "valtio";
 import { Menu } from "./components/menu";
 import { Page1_Form } from "./components/page1SimplestForm";
 import { Page2_Form } from "./components/page2";
 import { Page3_Form } from "./components/page3";
-import { ActivePage, appUi } from "./store";
+import { ActivePage, appUi, useSnapshot } from "@/store";
 
 export function App() {
     const store = useSnapshot(appUi);
