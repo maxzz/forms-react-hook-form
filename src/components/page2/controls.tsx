@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, HTMLAttributes, HtmlHTMLAttributes, HTMLInputTypeAttribute, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { FieldErrors, FieldValues, UseFormRegisterReturn } from "react-hook-form";
-import { classNames } from "../../utils";
+import { classNames } from "@/utils";
 
 type RegisterAndErrors<T extends FieldValues> = {
     registered: UseFormRegisterReturn;

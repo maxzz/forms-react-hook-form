@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
-import { ActivePage, appUi } from "../../store";
-import { classNames } from "../../utils";
+import { ActivePage, appUi } from "@/store";
+import { classNames } from "@/utils";
 
 function MenuItem({ name, label }: { name: ActivePage, label: string; }) {
     const isActive = useSnapshot(appUi).activePage === name;

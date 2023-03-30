@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
-import { classNames } from '../../../utils';
+import { classNames } from '@/utils';
 
-export { ReactComponent as IconVessel7 } from '../../../assets/sources/vessel7.svg';
+export { ReactComponent as IconVessel7 } from '@/assets/sources/vessel7.svg';
 
 export function IconStar({ title, ...rest }: HTMLAttributes<SVGSVGElement>) {
     return (
