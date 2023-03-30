@@ -27,23 +27,8 @@ export const selectOptions: SelectOption[] = [
     { label: 'Dr', value: 'Dr' },
 ];
 
-export function mergeDefaultAndSaved(def: Inputs, saved: Inputs): Inputs {
-    const defKeys = Object.keys(def) as (keyof Inputs)[];
-
-    const res = defKeys.map((key) => {
-        return saved[key] !== undefined ? saved[key] : def[key];
-    });
-
-    return res as unknown as Inputs;
+export function mergeDefaultAndSaved<T extends {}>(def: T, saved: T): T {
+    const defKeys = Object.keys(def) as (keyof T)[];
+    const res = defKeys.map((key) => saved[key] !== undefined ? saved[key] : def[key]);
+    return res as unknown as T;
 }
-// function mergeDefaultAndSaved(def: Inputs, saved: Inputs) {
-//     const defKeys = Object.keys(def) as (keyof Inputs)[];
-//     defKeys.forEach((key) => {
-//         const v = saved[key];
-//         if (v !== undefined) {
-//             def[key] = v;
-//             // let a = def[key];
-//             // a = v;
-//         }
-//     });
-// }
