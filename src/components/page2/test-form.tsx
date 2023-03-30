@@ -1,11 +1,11 @@
 import { HTMLAttributes } from "react";
 import { FieldErrors, useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { classNames } from "@/utils";
-import { Input, Select, Radio, Button, DebugDisplay, InputFloat } from "./controls";
-import { Inputs, selectOptions } from "./controls-data";
+import { Button, DebugDisplay, InputFloat, Radio, Select } from "./controls";
+import { Form2Inputs, selectOptions } from "./controls-data";
 import { IconClose, IconStar, IconVessel7 } from "../ui/icons";
 
-function NamesGroup({ register, errors }: { register: UseFormRegister<Inputs>; errors: FieldErrors<Inputs>; }) {
+function NamesGroup({ register, errors }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; }) {
     return (<>
         <InputFloat registered={register('name', { required: 'This field is required' })} errors={errors} placeholder="User name" />
         <InputFloat registered={register('firstName', { required: 'This field is required' })} errors={errors} placeholder="First name" />
@@ -13,7 +13,7 @@ function NamesGroup({ register, errors }: { register: UseFormRegister<Inputs>; e
     </>);
 }
 
-function OtherControlsGroup({ register, errors, watch }: { register: UseFormRegister<Inputs>; errors: FieldErrors<Inputs>; watch: UseFormWatch<Inputs>; }) {
+function OtherControlsGroup({ register, errors, watch }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; watch: UseFormWatch<Form2Inputs>; }) {
     const moreDetail = watch('moreDetails');
     return (
         <div className="grid gap-2">
@@ -52,14 +52,14 @@ function OtherControlsGroup({ register, errors, watch }: { register: UseFormRegi
     );
 }
 
-function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Inputs>; } & HTMLAttributes<HTMLDivElement>) {
+function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Form2Inputs>; } & HTMLAttributes<HTMLDivElement>) {
     const displayValues = watch();
     return (
         <DebugDisplay displayValues={displayValues} {...rest} />
     );
 }
 
-export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }: { defaultValues: Inputs; onSave?: (data: Inputs) => void; onClose?: () => void; } & HTMLAttributes<HTMLDivElement>) {
+export function Form2({ defaultValues, className, onSave, onClose, ...rest }: { defaultValues: Form2Inputs; onSave?: (data: Form2Inputs) => void; onClose?: () => void; } & HTMLAttributes<HTMLDivElement>) {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
 
     const handleSubmitWithoutPropagation = (e: any, doSave: boolean) => {
@@ -67,7 +67,7 @@ export function TestForm2({ defaultValues, className, onSave, onClose, ...rest }
         e.stopPropagation();
         doSave ? handleSubmit(forwardSave)(e) : onClose?.();
 
-        function forwardSave(data: Inputs) {
+        function forwardSave(data: Form2Inputs) {
             console.info("Submit ModalForm", data);
             onSave?.(data);
         }

@@ -1,6 +1,6 @@
 import { SelectOption } from "./controls";
 
-export type Inputs = {
+export type Form2Inputs = {
     name: string,
     firstName: string,
     lastName: string,
@@ -10,7 +10,7 @@ export type Inputs = {
     interests: string;
 };
 
-export const defaultValues: Inputs = {
+export const defaultValues: Form2Inputs = {
     name: 'Max Z.',
     firstName: 'Max',
     lastName: '',
