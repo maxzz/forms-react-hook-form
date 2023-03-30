@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import { FieldErrors, useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
-import { classNames } from "../../utils/classnames";
+import { classNames } from "../../utils";
 import { Input, Select, Radio, Button, DebugDisplay, InputFloat } from "./controls";
 import { Inputs, selectOptions } from "./controls-data";
 import { IconClose, IconStar, IconVessel7 } from "../ui/icons";

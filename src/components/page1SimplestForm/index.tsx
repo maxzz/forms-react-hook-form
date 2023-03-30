@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
-import { classNames } from '../../utils/classnames';
+import { classNames } from '../../utils';
 
 type Inputs = {
     example: string,

@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { ReactPortal } from '../page2/controls';
-import { classNames } from "../../utils/classnames";
+import { classNames } from "../../utils";
 import { appUi } from "../../store";
 import { defaultValues, Inputs } from "../page2/controls-data";
 import { TestForm2 } from "../page2/test-form";
