@@ -1,13 +1,13 @@
 import { ReactPortal } from '../page2/controls';
 import { classNames } from "@/utils";
 import { appUi, useSnapshot } from "@/store";
-import { defaultValues, Inputs } from "../page2/controls-data";
-import { TestForm2 } from "../page2/test-form";
+import { defaultValues, Form2Inputs } from "../page2/controls-data";
+import { Form2 } from "../page2/test-form";
 
 export function Page3_Form() {
     const store = useSnapshot(appUi);
 
-    function onSave(data: Inputs) {
+    function onSave(data: Form2Inputs) {
         console.log('dialog data', JSON.stringify(data, null, 4));
         appUi.page3open = !store.page3open;
     }
@@ -25,21 +25,15 @@ export function Page3_Form() {
                 >{appUi.page3open ? "Opened" : "Open"}</button>
             </div>
 
-            <ReactPortal>
-                {/* re-created */}
-                {appUi.page3open && <div className={classNames("h-full")}>
-                    <div className="fixed inset-0 z-[1040]">
-                        <TestForm2 defaultValues={defaultValues} onSave={onSave} onClose={onClose} />
+            {appUi.page3open &&
+                <ReactPortal>
+                    <div className={classNames("h-full")}>
+                        <div className="fixed inset-0 z-[1040]">
+                            <Form2 defaultValues={defaultValues} onSave={onSave} onClose={onClose} />
+                        </div>
                     </div>
-                </div>}
-
-                {/* uses old state */}
-                {/* <div className={classNames("h-full", !appUi.page3open && "hidden")}>
-                    <div className="fixed inset-0 z-[1040]">
-                        <TestForm2 defaultValues={defaultValues} onSave={onSave} onClose={onClose} />
-                    </div>
-                </div> */}
-            </ReactPortal>
+                </ReactPortal>
+            }
         </div>
     );
 }
