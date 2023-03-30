@@ -26,11 +26,19 @@ export function Page3_Form() {
             </div>
 
             <ReactPortal>
-                <div className={classNames("h-full", !appUi.page3open && "hidden")}>
+                {/* re-created */}
+                {appUi.page3open && <div className={classNames("h-full")}>
                     <div className="fixed inset-0 z-[1040]">
                         <TestForm2 defaultValues={defaultValues} onSave={onSave} onClose={onClose} />
                     </div>
-                </div>
+                </div>}
+
+                {/* uses old state */}
+                {/* <div className={classNames("h-full", !appUi.page3open && "hidden")}>
+                    <div className="fixed inset-0 z-[1040]">
+                        <TestForm2 defaultValues={defaultValues} onSave={onSave} onClose={onClose} />
+                    </div>
+                </div> */}
             </ReactPortal>
         </div>
     );
