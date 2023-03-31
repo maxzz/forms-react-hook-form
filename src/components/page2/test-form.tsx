@@ -1,9 +1,10 @@
 import { HTMLAttributes } from "react";
-import { FieldErrors, useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
+import { Control, FieldErrors, useForm, UseFormRegister, UseFormWatch, useWatch } from "react-hook-form";
 import { classNames } from "@/utils";
 import { Button, DebugDisplay, InputFloat, Radio, Select } from "../page2-controls";
 import { Form2Inputs, selectOptions } from "./controls-data";
 import { IconClose, IconStar, IconVessel7 } from "../ui/icons";
+import { log } from "console";
 
 function NamesGroup({ register, errors }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; }) {
     return (<>
@@ -13,8 +14,15 @@ function NamesGroup({ register, errors }: { register: UseFormRegister<Form2Input
     </>);
 }
 
-function OtherControlsGroup({ register, errors, watch }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; watch: UseFormWatch<Form2Inputs>; }) {
-    const moreDetail = watch('moreDetails');
+function OtherControlsGroup({ register, errors, control }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
+
+    //const moreDetail = watch('moreDetails');
+    const moreDetail = useWatch({
+        control,
+        name: 'moreDetails',
+    });
+
+    console.log('    render: more');
     return (<>
         {/* Simple inputs */}
 
@@ -50,8 +58,11 @@ function OtherControlsGroup({ register, errors, watch }: { register: UseFormRegi
     </>);
 }
 
-function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Form2Inputs>; } & HTMLAttributes<HTMLDivElement>) {
-    const displayValues = watch();
+function LiveDebugDisplay({ control, ...rest }: { control: Control<Form2Inputs, any>; } & HTMLAttributes<HTMLDivElement>) {
+    // const displayValues = watch();
+    const displayValues = useWatch({ control });
+
+    console.log('    render: display');
     return (
         <DebugDisplay displayValues={displayValues} {...rest} />
     );
@@ -86,7 +97,7 @@ type Form2Params = {
 };
 
 export function Form2({ defaultValues, resetValues, className, onSave, onClose, ...rest }: Form2Params & HTMLAttributes<HTMLDivElement>) {
-    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
+    const { register, handleSubmit, control, reset, formState: { errors } } = useForm({ defaultValues });
 
     const handleSubmitWithoutPropagation = ({ event, doSave }: { event: any; doSave: boolean; }) => {
         event.preventDefault();
@@ -97,6 +108,8 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
             onSave?.(data);
         }
     };
+
+    console.log('---------form2 render');
 
     return (
         <div className={classNames("px-4 pt-8 w-full h-full text-yellow-900 bg-gray-900/50 flex flex-col animate-in fade-in duration-300", className)} {...rest}>
@@ -109,7 +122,7 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
                         <Caption onClose={(event) => handleSubmitWithoutPropagation({ event, doSave: false })} />
 
                         <div className="p-4 grid gap-2">
-                            <OtherControlsGroup register={register} errors={errors} watch={watch} />
+                            <OtherControlsGroup register={register} errors={errors} control={control} />
                         </div>
 
                         {/* Buttons */}
@@ -128,7 +141,8 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
                 </div>
             </div>
 
-            <LiveDebugDisplay watch={watch} />
+            <LiveDebugDisplay control={control} />
+            {/* <LiveDebugDisplay watch={watch} /> */}
         </div>
     );
 }
