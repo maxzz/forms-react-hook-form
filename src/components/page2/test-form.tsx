@@ -59,6 +59,27 @@ function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Form2Inputs>
     );
 }
 
+function Caption({onClose}: {onClose?: (event: React.MouseEvent) => void} & HTMLAttributes<HTMLDivElement>) {
+    return (
+        <div className="bg-yellow-500 flex items-center justify-between select-none">
+            <div className="px-4 py-2 flex items-center ">
+                <div className="mr-4 py-2 text-xl font-semibold tracking-tighter scale-y-110 origin-bottom">Form caption</div>
+                <div className="w-4 h-4"><IconVessel7 /></div>
+                <IconStar className="w-8 h-8 fill-slate-500 animate-in fade-in duration-1000" />
+            </div>
+            {onClose &&
+                <button
+                    className="px-3 h-full hover:bg-gray-900/10 flex items-center"
+                    title="Close dialog"
+                    onClick={onClose}
+                >
+                    <div className="w-6 h-6"><IconClose /></div>
+                </button>
+            }
+        </div>
+    );
+}
+
 type Form2Params = {
     defaultValues: Form2Inputs;
     resetValues?: Form2Inputs;
@@ -87,23 +108,7 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
                     <form className=" w-[420px] bg-yellow-400 grid gap-y-2" onSubmit={(e) => handleSubmitWithoutPropagation({ event: e, doSave: true })}>
 
                         {/* Caption */}
-
-                        <div className="bg-yellow-500 flex items-center justify-between select-none">
-                            <div className="px-4 py-2 flex items-center ">
-                                <div className="mr-4 py-2 text-xl font-semibold tracking-tighter scale-y-110 origin-bottom">Form caption</div>
-                                <div className="w-4 h-4"><IconVessel7 /></div>
-                                <IconStar className="w-8 h-8 fill-slate-500 animate-in fade-in duration-1000" />
-                            </div>
-                            {onClose &&
-                                <button
-                                    className="px-3 h-full hover:bg-gray-900/10 flex items-center"
-                                    title="Close dialog"
-                                    onClick={(event) => handleSubmitWithoutPropagation({ event, doSave: false })}
-                                >
-                                    <div className="w-6 h-6"><IconClose /></div>
-                                </button>
-                            }
-                        </div>
+                        <Caption onClose={(event) => handleSubmitWithoutPropagation({ event, doSave: false })} />
 
                         <div className="p-4">
                             <OtherControlsGroup register={register} errors={errors} watch={watch} />
@@ -111,7 +116,7 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
                             {/* Buttons */}
 
                             <div className="flex items-center justify-end gap-x-2">
-                                <Button onClick={(event) => {event.preventDefault(); reset(resetValues || defaultValues)}}>Reset</Button>
+                                <Button onClick={(event) => { event.preventDefault(); reset(resetValues || defaultValues); }}>Reset</Button>
                                 <Button type="submit">OK</Button>
 
                                 {onClose &&
