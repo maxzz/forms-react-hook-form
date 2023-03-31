@@ -2,7 +2,7 @@ import { proxy, subscribe } from 'valtio';
 export { useSnapshot } from 'valtio';
 
 import { form2DefaultValues, Form2Inputs } from '@/components/page2/controls-data';
-import { mergeDefaultAndSaved } from '@/utils';
+import { mergeDefaultAndLoaded } from '@/utils';
 
 const STORAGE_KEY = 'forms-react-hook-form';
 const STORAGE_VER = 'v1';
@@ -24,7 +24,7 @@ type AppUi = {
 const initialAppUi: AppUi = {
     activePage: ActivePage.page3,
     page3open: true,
-    
+
     form2Inputs: form2DefaultValues,
     form3Inputs: form2DefaultValues,
 };
@@ -37,8 +37,8 @@ function loadStorageAppUi(): AppUi {
     const storage = localStorage.getItem(STORAGE_KEY);
     if (storage) {
         try {
-            const state = JSON.parse(storage);
-            return mergeDefaultAndSaved(initialAppUi, state[STORAGE_VER]);
+            const state = mergeDefaultAndLoaded(JSON.parse(storage)?.[STORAGE_VER], initialAppUi);
+            return state;
         } catch (error) {
         }
     }

@@ -1,8 +1,8 @@
-export function mergeDefaultAndSaved<T extends {}>(defaults: T, loaded?: T): T {
+export function mergeDefaultAndLoaded<T extends Record<string, unknown>>(loaded: T | undefined, defaults: T): T {
     if (!loaded) {
         return defaults;
     }
-    const keys = Object.keys(defaults) as (keyof T)[];
-    const res = keys.map((key) => loaded[key] !== undefined ? loaded[key] : defaults[key]);
-    return res as unknown as T;
+    const entries = Object.entries(defaults);
+    const res = entries.map(([key, defaultValue]) => [key, loaded[key] !== undefined ? loaded[key] : defaultValue]);
+    return Object.fromEntries(res);
 }
