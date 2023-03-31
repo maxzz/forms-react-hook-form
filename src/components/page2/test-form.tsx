@@ -113,13 +113,16 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
                         </div>
 
                         {/* Buttons */}
-                        <div className="p-4 pt-0 flex items-center justify-end gap-x-2">
+                        <div className="p-4 pt-0 flex items-center justify-between">
                             <Button onClick={(event) => { event.preventDefault(); reset(resetValues || defaultValues); }}>Reset</Button>
-                            <Button type="submit">OK</Button>
 
-                            {onClose &&
-                                <Button onClick={(event) => handleSubmitWithoutPropagation({ event, doSave: false })}>Cancel</Button>
-                            }
+                            <div className="space-x-2">
+                                <Button type="submit">OK</Button>
+
+                                {onClose &&
+                                    <Button onClick={(event) => handleSubmitWithoutPropagation({ event, doSave: false })}>Cancel</Button>
+                                }
+                            </div>
                         </div>
                     </form>
                 </div>

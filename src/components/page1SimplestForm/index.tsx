@@ -92,7 +92,7 @@ function Form() {
 
                             {/* Buttons */}
 
-                            <div className="flex items-center justify-end gap-x-2">
+                            <div className="flex items-center justify-between">
                                 <input
                                     className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded active:scale-y-[.97]"
                                     type="reset" value="Reset" onClick={() => reset()}
