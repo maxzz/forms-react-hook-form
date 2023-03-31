@@ -10,7 +10,7 @@ export type Form2Inputs = {
     interests: string;
 };
 
-export const defaultValues: Form2Inputs = {
+export const form2DefaultValues: Form2Inputs = {
     name: 'Max Z.',
     firstName: 'Max',
     lastName: '',

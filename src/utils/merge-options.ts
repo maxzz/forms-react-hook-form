@@ -1,5 +1,8 @@
-export function mergeDefaultAndSaved<T extends {}>(def: T, saved: T): T {
-    const defKeys = Object.keys(def) as (keyof T)[];
-    const res = defKeys.map((key) => saved[key] !== undefined ? saved[key] : def[key]);
+export function mergeDefaultAndSaved<T extends {}>(defaults: T, loaded?: T): T {
+    if (!loaded) {
+        return defaults;
+    }
+    const keys = Object.keys(defaults) as (keyof T)[];
+    const res = keys.map((key) => loaded[key] !== undefined ? loaded[key] : defaults[key]);
     return res as unknown as T;
 }
