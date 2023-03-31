@@ -1,7 +1,7 @@
 import { ReactPortal } from '../page2/controls';
 import { classNames } from "@/utils";
 import { appUi, useSnapshot } from "@/store";
-import { Form2Inputs } from "../page2/controls-data";
+import { Form3Inputs } from "./controls-data";
 import { Form2 } from "../page2/test-form";
 
 export function Page3_Form() {
@@ -11,9 +11,8 @@ export function Page3_Form() {
         appUi.page3open = !store.page3open;
     }
 
-    function onSave(data: Form2Inputs) {
-        //console.log('dialog data', JSON.stringify(data, null, 4));
-        appUi.form2Inputs = data;
+    function onSave(data: Form3Inputs) {
+        appUi.form3Inputs = data;
         onClose();
     }
 
@@ -30,7 +29,7 @@ export function Page3_Form() {
                 <ReactPortal>
                     <div className={classNames("h-full")}>
                         <div className="fixed inset-0 z-40">
-                            <Form2 defaultValues={store.form2Inputs} onClose={onClose} onSave={onSave} />
+                            <Form2 defaultValues={store.form3Inputs} onClose={onClose} onSave={onSave} />
                         </div>
                     </div>
                 </ReactPortal>
