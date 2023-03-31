@@ -15,12 +15,14 @@ export const enum ActivePage {
 type AppUi = {
     activePage: ActivePage;
     page3open: boolean;
+
     form2Inputs: Form2Inputs;
 };
 
 const initialAppUi: AppUi = {
     activePage: ActivePage.page3,
     page3open: true,
+    
     form2Inputs: defaultValues,
 };
 
