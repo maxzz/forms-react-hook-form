@@ -4,7 +4,6 @@ import { classNames } from "@/utils";
 import { Button, DebugDisplay, InputFloat, Radio, Select } from "../page2-controls";
 import { Form2Inputs, selectOptions } from "./controls-data";
 import { IconClose, IconStar, IconVessel7 } from "../ui/icons";
-import { log } from "console";
 
 function NamesGroup({ register, errors }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; }) {
     return (<>
@@ -14,15 +13,28 @@ function NamesGroup({ register, errors }: { register: UseFormRegister<Form2Input
     </>);
 }
 
-function OtherControlsGroup({ register, errors, control }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
-
-    //const moreDetail = watch('moreDetails');
-    const moreDetail = useWatch({
-        control,
-        name: 'moreDetails',
-    });
-
+function MoreControlsGroup({ register, errors, control }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
+    const moreDetail = useWatch({ control, name: 'moreDetails', });
     console.log('    render: more');
+    return (
+        <>
+            <label className="pt-2 flex items-center gap-x-2 select-none">
+                <input className="w-5 h-5 accent-yellow-900" type="checkbox" {...register('moreDetails')} />
+                <span>More controls..</span>
+            </label>
+
+            <div className={classNames(!moreDetail && 'invisible')}>
+                <label className="mt-1 grid">
+                    <span>Optional data</span>
+                    <input className="px-4 py-2 rounded" {...register('interests')} />
+                </label>
+            </div>
+        </>
+    );
+}
+
+function OtherControlsGroup({ register, errors, control }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
+    console.log('    render: all other');
     return (<>
         {/* Simple inputs */}
 
@@ -43,26 +55,13 @@ function OtherControlsGroup({ register, errors, control }: { register: UseFormRe
         </div>
 
         {/* Optional fields */}
+        <MoreControlsGroup register={register} errors={errors} control={control} />
 
-        <label className="pt-2 flex items-center gap-x-2 select-none">
-            <input className="w-5 h-5 accent-yellow-900" type="checkbox" {...register('moreDetails')} />
-            <span>More controls..</span>
-        </label>
-
-        <div className={classNames(!moreDetail && 'invisible')}>
-            <label className="mt-1 grid">
-                <span>Optional data</span>
-                <input className="px-4 py-2 rounded" {...register('interests')} />
-            </label>
-        </div>
     </>);
 }
 
 function LiveDebugDisplay({ control, ...rest }: { control: Control<Form2Inputs, any>; } & HTMLAttributes<HTMLDivElement>) {
-    // const displayValues = watch();
     const displayValues = useWatch({ control });
-
-    console.log('    render: display');
     return (
         <DebugDisplay displayValues={displayValues} {...rest} />
     );
@@ -142,7 +141,6 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
             </div>
 
             <LiveDebugDisplay control={control} />
-            {/* <LiveDebugDisplay watch={watch} /> */}
         </div>
     );
 }
