@@ -9,6 +9,7 @@ export function Page3_Form() {
 
     function onSave(data: Form2Inputs) {
         console.log('dialog data', JSON.stringify(data, null, 4));
+        appUi.form2Inputs = data;
         appUi.page3open = !store.page3open;
     }
 
@@ -28,7 +29,7 @@ export function Page3_Form() {
             {appUi.page3open &&
                 <ReactPortal>
                     <div className={classNames("h-full")}>
-                        <div className="fixed inset-0 z-[1040]">
+                        <div className="fixed inset-0 z-40">
                             <Form2 defaultValues={store.form2Inputs} onSave={onSave} onClose={onClose} />
                         </div>
                     </div>
