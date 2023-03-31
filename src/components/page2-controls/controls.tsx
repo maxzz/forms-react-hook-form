@@ -70,7 +70,7 @@ export function Radio({ registered, label, value }: { registered: UseFormRegiste
 
 export function Button({ children, ...rest }: ButtonHTMLAttributes<HTMLButtonElement>) {
     return (
-        <button className="place-self-center mt-4 px-4 py-2 bg-yellow-500 border-yellow-500 border rounded select-none active:scale-y-95" {...rest}>
+        <button className="place-self-center px-4 py-2 bg-yellow-500 border-yellow-500 border rounded select-none active:scale-y-95" {...rest}>
             {children}
         </button>
     );

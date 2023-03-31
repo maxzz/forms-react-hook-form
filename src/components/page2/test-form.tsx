@@ -15,41 +15,39 @@ function NamesGroup({ register, errors }: { register: UseFormRegister<Form2Input
 
 function OtherControlsGroup({ register, errors, watch }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; watch: UseFormWatch<Form2Inputs>; }) {
     const moreDetail = watch('moreDetails');
-    return (
-        <div className="grid gap-2">
-            {/* Simple inputs */}
+    return (<>
+        {/* Simple inputs */}
 
-            <NamesGroup register={register} errors={errors} />
+        <NamesGroup register={register} errors={errors} />
 
-            {/* Select */}
+        {/* Select */}
 
-            <label className="flex items-center space-x-1 select-none">
-                <span>Title</span>
-                <Select registered={register('title')} options={selectOptions} />
-            </label>
+        <label className="flex items-center space-x-1 select-none">
+            <span>Title</span>
+            <Select registered={register('title')} options={selectOptions} />
+        </label>
 
-            {/* Radio */}
+        {/* Radio */}
 
-            <div className="my-2 flex items-center gap-x-4">
-                <Radio label="One" value="2" registered={register("radioIn", { required: true })} />
-                <Radio label="Two" value="3" registered={register("radioIn", { required: true })} />
-            </div>
-
-            {/* Optional fields */}
-
-            <label className="pt-2 flex items-center gap-x-2 select-none">
-                <input className="w-5 h-5 accent-yellow-900" type="checkbox" {...register('moreDetails')} />
-                <span>More controls..</span>
-            </label>
-
-            <div className={classNames(!moreDetail && 'invisible')}>
-                <label className="mt-1 grid">
-                    <span>Optional data</span>
-                    <input className="px-4 py-2 rounded" {...register('interests')} />
-                </label>
-            </div>
+        <div className="my-2 flex items-center gap-x-4">
+            <Radio label="One" value="2" registered={register("radioIn", { required: true })} />
+            <Radio label="Two" value="3" registered={register("radioIn", { required: true })} />
         </div>
-    );
+
+        {/* Optional fields */}
+
+        <label className="pt-2 flex items-center gap-x-2 select-none">
+            <input className="w-5 h-5 accent-yellow-900" type="checkbox" {...register('moreDetails')} />
+            <span>More controls..</span>
+        </label>
+
+        <div className={classNames(!moreDetail && 'invisible')}>
+            <label className="mt-1 grid">
+                <span>Optional data</span>
+                <input className="px-4 py-2 rounded" {...register('interests')} />
+            </label>
+        </div>
+    </>);
 }
 
 function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Form2Inputs>; } & HTMLAttributes<HTMLDivElement>) {
@@ -59,7 +57,7 @@ function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Form2Inputs>
     );
 }
 
-function Caption({onClose}: {onClose?: (event: React.MouseEvent) => void} & HTMLAttributes<HTMLDivElement>) {
+function Caption({ onClose }: { onClose?: (event: React.MouseEvent) => void; }) {
     return (
         <div className="bg-yellow-500 flex items-center justify-between select-none">
             <div className="px-4 py-2 flex items-center ">
@@ -110,19 +108,18 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
                         {/* Caption */}
                         <Caption onClose={(event) => handleSubmitWithoutPropagation({ event, doSave: false })} />
 
-                        <div className="p-4">
+                        <div className="p-4 grid gap-2">
                             <OtherControlsGroup register={register} errors={errors} watch={watch} />
+                        </div>
 
-                            {/* Buttons */}
+                        {/* Buttons */}
+                        <div className="p-4 pt-0 flex items-center justify-end gap-x-2">
+                            <Button onClick={(event) => { event.preventDefault(); reset(resetValues || defaultValues); }}>Reset</Button>
+                            <Button type="submit">OK</Button>
 
-                            <div className="flex items-center justify-end gap-x-2">
-                                <Button onClick={(event) => { event.preventDefault(); reset(resetValues || defaultValues); }}>Reset</Button>
-                                <Button type="submit">OK</Button>
-
-                                {onClose &&
-                                    <Button onClick={(event) => handleSubmitWithoutPropagation({ event, doSave: false })}>Cancel</Button>
-                                }
-                            </div>
+                            {onClose &&
+                                <Button onClick={(event) => handleSubmitWithoutPropagation({ event, doSave: false })}>Cancel</Button>
+                            }
                         </div>
                     </form>
                 </div>
