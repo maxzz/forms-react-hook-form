@@ -1,4 +1,4 @@
-import { SelectOption } from "./controls";
+import { SelectOption } from "../page2-controls";
 
 export type Form2Inputs = {
     name: string,

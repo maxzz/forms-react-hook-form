@@ -1,4 +1,4 @@
-import { ReactPortal } from '../page2/controls';
+import { ReactPortal } from '../page2-controls';
 import { classNames } from "@/utils";
 import { appUi, useSnapshot } from "@/store";
 import { Form3Inputs } from "./controls-data";

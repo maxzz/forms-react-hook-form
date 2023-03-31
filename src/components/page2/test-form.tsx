@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 import { FieldErrors, useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { classNames } from "@/utils";
-import { Button, DebugDisplay, InputFloat, Radio, Select } from "./controls";
+import { Button, DebugDisplay, InputFloat, Radio, Select } from "../page2-controls";
 import { Form2Inputs, selectOptions } from "./controls-data";
 import { IconClose, IconStar, IconVessel7 } from "../ui/icons";
 
@@ -59,16 +59,22 @@ function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Form2Inputs>
     );
 }
 
-export function Form2({ defaultValues, resetValues, className, onSave, onClose, ...rest }: { defaultValues: Form2Inputs; resetValues?: Form2Inputs; onSave?: (data: Form2Inputs) => void; onClose?: () => void; } & HTMLAttributes<HTMLDivElement>) {
+type Form2Params = {
+    defaultValues: Form2Inputs;
+    resetValues?: Form2Inputs;
+    onSave?: (data: Form2Inputs) => void;
+    onClose?: () => void; //TODO: Text for Close button, or render it outside
+};
+
+export function Form2({ defaultValues, resetValues, className, onSave, onClose, ...rest }: Form2Params & HTMLAttributes<HTMLDivElement>) {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
 
-    const handleSubmitWithoutPropagation = (e: any, doSave: boolean) => {
-        e.preventDefault();
-        e.stopPropagation();
-        doSave ? handleSubmit(forwardSave)(e) : onClose?.();
+    const handleSubmitWithoutPropagation = ({ event, doSave }: { event: any; doSave: boolean; }) => {
+        event.preventDefault();
+        event.stopPropagation();
+        doSave ? handleSubmit(forwardSave)(event) : onClose?.();
 
         function forwardSave(data: Form2Inputs) {
-            console.info("Submit ModalForm", data);
             onSave?.(data);
         }
     };
@@ -78,7 +84,7 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
 
             <div className="flex-1 grid place-items-center">
                 <div className="border-yellow-700 border rounded shadow overflow-hidden animate-in fade-in zoom-in ease-out duration-150">
-                    <form className=" w-[420px] bg-yellow-400 grid gap-y-2" onSubmit={(e) => handleSubmitWithoutPropagation(e, true)}>
+                    <form className=" w-[420px] bg-yellow-400 grid gap-y-2" onSubmit={(e) => handleSubmitWithoutPropagation({ event: e, doSave: true })}>
 
                         {/* Caption */}
 
@@ -92,7 +98,7 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
                                 <button
                                     className="px-3 h-full hover:bg-gray-900/10 flex items-center"
                                     title="Close dialog"
-                                    onClick={(e) => handleSubmitWithoutPropagation(e, false)}
+                                    onClick={(event) => handleSubmitWithoutPropagation({ event, doSave: false })}
                                 >
                                     <div className="w-6 h-6"><IconClose /></div>
                                 </button>
@@ -105,11 +111,11 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
                             {/* Buttons */}
 
                             <div className="flex items-center justify-end gap-x-2">
-                                <Button onClick={(e) => {e.preventDefault(); reset(resetValues || defaultValues)}}>Reset</Button>
+                                <Button onClick={(event) => {event.preventDefault(); reset(resetValues || defaultValues)}}>Reset</Button>
                                 <Button type="submit">OK</Button>
 
                                 {onClose &&
-                                    <Button onClick={(e) => handleSubmitWithoutPropagation(e, false)}>Cancel</Button>
+                                    <Button onClick={(event) => handleSubmitWithoutPropagation({ event, doSave: false })}>Cancel</Button>
                                 }
                             </div>
                         </div>
@@ -124,3 +130,4 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
 
 //TODO: click outside - now it is only modal
 //TODO: escape button
+//TODO: validate schema

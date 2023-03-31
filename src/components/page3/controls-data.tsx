@@ -1,4 +1,4 @@
-import { SelectOption } from "../page2/controls";
+import { SelectOption } from "../page2-controls";
 import { Form2Inputs } from "../page2/controls-data";
 
 export type Form3Inputs = Form2Inputs;

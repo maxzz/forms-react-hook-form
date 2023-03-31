@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, HTMLAttributes, HtmlHTMLAttributes, HTMLInputTypeAttribute, ReactNode } from "react";
+import { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { FieldErrors, FieldValues, UseFormRegisterReturn } from "react-hook-form";
 import { classNames } from "@/utils";
@@ -14,7 +14,6 @@ export function Input<T extends FieldValues>({ registered, errors }: RegisterAnd
     return (
         <div className="relative mb-4 grid">
             <input className="px-2 py-2 rounded" {...registered} />
-            {/* <span className={classNames("text-xs text-[red] select-none", !error && 'invisible',)}><>{error}&nbsp;</></span> */}
             <div className={classNames("absolute left-2 -bottom-2 px-1 py-px text-xs font-semibold text-yellow-50 bg-orange-500 rounded-sm select-none", !error && 'invisible',)}>
                 <>{error}</>
             </div>
