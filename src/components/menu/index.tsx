@@ -5,7 +5,7 @@ function MenuItem({ name, label }: { name: ActivePage, label: string; }) {
     const isActive = useSnapshot(appUi).activePage === name;
     return (
         <button
-            className={classNames("px-4 py-2 w-full text-left hover:bg-gray-900/10 rounded", isActive && "font-semibold")}
+            className={classNames("px-4 py-2 w-full text-left tracking-tighter hover:bg-gray-900/10 rounded", isActive && "font-semibold")}
             onClick={() => appUi.activePage = name}
         >
             {label}

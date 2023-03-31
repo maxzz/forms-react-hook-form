@@ -59,7 +59,7 @@ function LiveDebugDisplay({ watch, ...rest }: { watch: UseFormWatch<Form2Inputs>
     );
 }
 
-export function Form2({ defaultValues, className, onSave, onClose, ...rest }: { defaultValues: Form2Inputs; onSave?: (data: Form2Inputs) => void; onClose?: () => void; } & HTMLAttributes<HTMLDivElement>) {
+export function Form2({ defaultValues, resetValues, className, onSave, onClose, ...rest }: { defaultValues: Form2Inputs; resetValues?: Form2Inputs; onSave?: (data: Form2Inputs) => void; onClose?: () => void; } & HTMLAttributes<HTMLDivElement>) {
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({ defaultValues });
 
     const handleSubmitWithoutPropagation = (e: any, doSave: boolean) => {
@@ -105,7 +105,7 @@ export function Form2({ defaultValues, className, onSave, onClose, ...rest }: { 
                             {/* Buttons */}
 
                             <div className="flex items-center justify-end gap-x-2">
-                                <Button onClick={() => reset(defaultValues)}>Reset</Button>
+                                <Button onClick={(e) => {e.preventDefault(); reset(resetValues || defaultValues)}}>Reset</Button>
                                 <Button type="submit">OK</Button>
 
                                 {onClose &&

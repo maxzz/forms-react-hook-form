@@ -25,7 +25,7 @@ function Form() {
 
     const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
 
-    console.log(watch("example"));
+    //console.log(watch("example"));
 
     const moreDetail = watch("moreDetails");
 
@@ -108,7 +108,8 @@ function Form() {
             </div>
 
             <div className="py-4 text-sm">
-                <pre>{JSON.stringify(getValues(), null, 4)}</pre>
+                <pre>{JSON.stringify(watch(), null, 4)}</pre>
+                {/* <pre>{JSON.stringify(getValues(), null, 4)}</pre> */}
             </div>
         </div>
     );

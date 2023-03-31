@@ -7,9 +7,9 @@ import { ActivePage, appUi, useSnapshot } from "@/store";
 export function App() {
     const store = useSnapshot(appUi);
     return (
-        <div className="min-h-screen grid grid-cols-[minmax(0,400px)_2rem_auto_2fr] text-yellow-900 bg-yellow-200">
+        <div className="min-h-screen grid grid-cols-[minmax(0,400px)_auto_auto_2fr] text-yellow-900 bg-yellow-200">
             <Menu />
-            <div className="col-start-2 bg-green-500 w-8"></div>
+            <div className="col-start-2 bg-green-500 w-1"></div>
 
             {store.activePage === ActivePage.page1 && <Page1_Form />}
             {store.activePage === ActivePage.page2 && <Page2_Form />}
