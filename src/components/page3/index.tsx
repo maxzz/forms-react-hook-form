@@ -29,7 +29,7 @@ export function Page3_Form() {
                 <ReactPortal>
                     <div className={classNames("h-full")}>
                         <div className="fixed inset-0 z-40">
-                            <Form2 defaultValues={store.form3Inputs} onClose={onClose} onSave={onSave} />
+                            <Form2 defaultValues={store.form3Inputs as Form3Inputs} onClose={onClose} onSave={onSave} />
                         </div>
                     </div>
                 </ReactPortal>
