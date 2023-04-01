@@ -1,11 +1,12 @@
 import { HTMLAttributes } from "react";
-import { Control, FieldErrors, useForm, UseFormRegister, UseFormWatch, useWatch } from "react-hook-form";
+import { Control, FieldErrors, useForm, UseFormRegister, useWatch } from "react-hook-form";
 import { classNames } from "@/utils";
 import { Button, DebugDisplay, InputFloat, Radio, Select } from "../page2-controls";
 import { Form2Inputs, selectOptions } from "./controls-data";
 import { IconClose, IconStar, IconVessel7 } from "../ui/icons";
+import { GroupDynamicFields } from "./test-form-dynamic";
 
-function NamesGroup({ register, errors }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; }) {
+function GroupNames({ register, errors }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; }) {
     return (<>
         <InputFloat registered={register('name', { required: 'This field is required' })} errors={errors} placeholder="User name" />
         <InputFloat registered={register('firstName', { required: 'This field is required' })} errors={errors} placeholder="First name" />
@@ -13,50 +14,48 @@ function NamesGroup({ register, errors }: { register: UseFormRegister<Form2Input
     </>);
 }
 
-function MoreControlsGroup({ register, errors, control }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
+function GroupOptionalFields({ register, errors, control }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
     const moreDetail = useWatch({ control, name: 'moreDetails', });
-    console.log('    render: more');
     return (
         <>
             <label className="pt-2 flex items-center gap-x-2 select-none">
                 <input className="w-5 h-5 accent-yellow-900" type="checkbox" {...register('moreDetails')} />
-                <span>More controls..</span>
+                <span>More details..</span>
             </label>
 
             <div className={classNames(!moreDetail && 'invisible')}>
                 <label className="mt-1 grid">
                     <span>Optional data</span>
-                    <input className="px-4 py-2 rounded" {...register('interests')} />
+                    <input className="px-4 py-2 rounded" {...register('details')} />
                 </label>
+
+                <div className="mt-4">
+                    <GroupDynamicFields register={register} errors={errors} control={control} />
+                </div>
             </div>
         </>
     );
 }
 
 function OtherControlsGroup({ register, errors, control }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
-    console.log('    render: all other');
     return (<>
         {/* Simple inputs */}
-
-        <NamesGroup register={register} errors={errors} />
+        <GroupNames register={register} errors={errors} />
 
         {/* Select */}
-
         <label className="flex items-center space-x-1 select-none">
             <span>Title</span>
             <Select registered={register('title')} options={selectOptions} />
         </label>
 
         {/* Radio */}
-
         <div className="my-2 flex items-center gap-x-4">
             <Radio label="One" value="2" registered={register("radioIn", { required: true })} />
             <Radio label="Two" value="3" registered={register("radioIn", { required: true })} />
         </div>
 
         {/* Optional fields */}
-        <MoreControlsGroup register={register} errors={errors} control={control} />
-
+        <GroupOptionalFields register={register} errors={errors} control={control} />
     </>);
 }
 
@@ -108,8 +107,6 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
         }
     };
 
-    console.log('---------form2 render');
-
     return (
         <div className={classNames("px-4 pt-8 w-full h-full text-yellow-900 bg-gray-900/50 flex flex-col animate-in fade-in duration-300", className)} {...rest}>
 
@@ -148,3 +145,4 @@ export function Form2({ defaultValues, resetValues, className, onSave, onClose, 
 //TODO: click outside - now it is only modal
 //TODO: escape button
 //TODO: validate schema
+//TODO: dynamic fields

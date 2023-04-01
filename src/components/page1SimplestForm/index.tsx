@@ -8,7 +8,7 @@ type Inputs = {
     radioIn: string;
     title: string;
     moreDetails: boolean;
-    interests: string;
+    details: string;
 };
 
 const defaultValues: Inputs = {
@@ -17,7 +17,7 @@ const defaultValues: Inputs = {
     radioIn: '3',
     title: 'Dr',
     moreDetails: false,
-    interests: 'Some additional interests'
+    details: 'Some additional details'
 };
 
 function Form() {
@@ -85,7 +85,7 @@ function Form() {
                                 <div>
                                     <label className="mt-1 grid">
                                         <span>Optional data</span>
-                                        <input className="px-4 py-2 rounded" {...register('interests')} />
+                                        <input className="px-4 py-2 rounded" {...register('details')} />
                                     </label>
                                 </div>
                             )}

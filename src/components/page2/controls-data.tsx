@@ -1,5 +1,11 @@
 import { SelectOption } from "../page2-controls";
 
+export type FieldInForm = {
+    type: string;
+    disp: string;
+    value: string;
+}
+
 export type Form2Inputs = {
     name: string,
     firstName: string,
@@ -7,7 +13,8 @@ export type Form2Inputs = {
     radioIn: string;
     title: string;
     moreDetails: boolean;
-    interests: string;
+    details: string;
+    fields: FieldInForm[];
 };
 
 export const form2DefaultValues: Form2Inputs = {
@@ -17,7 +24,8 @@ export const form2DefaultValues: Form2Inputs = {
     radioIn: '3',
     title: 'Dr',
     moreDetails: false,
-    interests: 'Some additional interests'
+    details: 'Some additional details',
+    fields: [],
 };
 
 export const selectOptions: SelectOption[] = [

@@ -9,9 +9,11 @@ export function Page2_Form() {
         appUi.form2Inputs = data;
     }
 
+    //console.log('appUi', appUi.form2Inputs);
+
     return (
         <div className="flex items-center justify-center">
-            <Form2 defaultValues={store.form2Inputs} onSave={onSave} />
+            <Form2 defaultValues={store.form2Inputs as Form2Inputs} onSave={onSave} />
         </div>
     );
 }

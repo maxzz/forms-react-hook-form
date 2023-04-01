@@ -10,7 +10,8 @@ export const form3DefaultValues: Form3Inputs = {
     radioIn: '3',
     title: 'Dr',
     moreDetails: false,
-    interests: 'Some additional interests'
+    details: 'Some additional details',
+    fields: [],
 };
 
 export const selectOptions: SelectOption[] = [
