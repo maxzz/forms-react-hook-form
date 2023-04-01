@@ -78,7 +78,7 @@ export function Button({ children, ...rest }: ButtonHTMLAttributes<HTMLButtonEle
 
 export function DebugDisplay({ displayValues, className, ...rest }: { displayValues: unknown; } & HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames("py-4 text-sm", className)} {...rest}>
+        <div className={classNames("py-4 text-xs", className)} {...rest}>
             <pre>{JSON.stringify(displayValues, null, 4)}</pre>
         </div>
     );

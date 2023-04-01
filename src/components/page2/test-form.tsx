@@ -23,13 +23,13 @@ function GroupOptionalFields({ register, errors, control }: { register: UseFormR
                 <span>More details..</span>
             </label>
 
-            <div className={classNames(!moreDetail && 'invisible')}>
-                <label className="mt-1 grid">
+            <div className={classNames(!moreDetail && 'invisible', 'mt-1 divide-y divide-dotted divide-yellow-900')}>
+                <label className="pb-4 grid">
                     <span>Optional data</span>
                     <input className="px-4 py-2 rounded" {...register('details')} />
                 </label>
 
-                <div className="mt-4">
+                <div className="pt-4">
                     <GroupDynamicFields register={register} errors={errors} control={control} />
                 </div>
             </div>
