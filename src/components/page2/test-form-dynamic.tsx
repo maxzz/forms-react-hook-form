@@ -1,6 +1,6 @@
 import { UseFormRegister, FieldErrors, Control, useFieldArray, UseFormRegisterReturn } from "react-hook-form";
 import { Form2Inputs } from "./controls-data";
-import { IconArrowUp, IconClose, IconMenu, IconTrash } from "../ui/icons";
+import { IconArrowDown, IconArrowUp, IconClose, IconMenu, IconTrash } from "../ui/icons";
 
 function Row({ registered, errors, control }: { registered: UseFormRegisterReturn, errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
     return (
@@ -26,7 +26,8 @@ export function GroupDynamicFields({ register, errors, control }: { register: Us
                         {/* <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" /> */}
                         {/* <IconMenu className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" /> */}
                         {/* <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" /> */}
-                        <IconArrowUp className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" />
+                        {/* <IconArrowUp className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" /> */}
+                        <IconArrowDown className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" />
                     </button>
                 </div>
             ))}
