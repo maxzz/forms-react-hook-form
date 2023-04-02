@@ -1,6 +1,7 @@
 import { UseFormRegister, FieldErrors, Control, useFieldArray, UseFormRegisterReturn } from "react-hook-form";
 import { Form2Inputs } from "./controls-data";
 import { IconArrowDown, IconArrowUp, IconClose, IconMenu, IconTrash } from "../ui/icons";
+import { useState } from "react";
 
 function Row({ registered, errors, control }: { registered: UseFormRegisterReturn, errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
     return (
@@ -8,11 +9,20 @@ function Row({ registered, errors, control }: { registered: UseFormRegisterRetur
     );
 }
 
+function MenuButtons() {
+    return (
+        <div className="absolute right-0 top-0 py-1 bg-yellow-500 flex">
+            {/* <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" /> */}
+            <IconArrowUp className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" />
+            <IconArrowDown className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" />
+            <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" />
+        </div>
+    );
+}
+
 export function GroupDynamicFields({ register, errors, control }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: 'fields',
-    });
+    const { fields, append, remove } = useFieldArray({ control, name: 'fields', });
+    const [menuOpen, setMenuOpen] = useState(false);
     return (<>
         <div className="grid gap-y-1">
             {fields.map((field, idx) => (
@@ -22,12 +32,12 @@ export function GroupDynamicFields({ register, errors, control }: { register: Us
                     <Row registered={register(`fields.${idx}.value`)} errors={errors} control={control} />
                     <Row registered={register(`fields.${idx}.type`)} errors={errors} control={control} />
 
-                    <button onClick={(event) => { event.preventDefault(); remove(idx); }}>
-                        {/* <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" /> */}
-                        {/* <IconMenu className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" /> */}
-                        {/* <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" /> */}
-                        {/* <IconArrowUp className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" /> */}
-                        <IconArrowDown className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" />
+                    {/* <button onClick={(event) => { event.preventDefault(); remove(idx); }}> */}
+                    <button className="relative" onClick={(event) => { event.preventDefault(); setMenuOpen(v => !v); }}>
+                        <IconMenu className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" />
+                        {menuOpen &&
+                            <MenuButtons />
+                        }
                     </button>
                 </div>
             ))}
