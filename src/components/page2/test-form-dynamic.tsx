@@ -9,33 +9,52 @@ function RowItem({ registered, errors, control }: { registered: UseFormRegisterR
     );
 }
 
-function Row({ field, idx, register, errors, control }: { field: FieldArrayWithId<Form2Inputs, "fields", "id">; idx: number; register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
+type RowParams = {
+    field: FieldArrayWithId<Form2Inputs, "fields", "id">;
+    idx: number;
+    menuState: MenuState;
+    register: UseFormRegister<Form2Inputs>;
+    errors: FieldErrors<Form2Inputs>;
+    control: Control<Form2Inputs, any>;
+};
+
+function Row({ field, idx, menuState, register, errors, control }: RowParams) {
     const [menuOpen, setMenuOpen] = useState(false);
+    const onClose = (event: React.MouseEvent) => { event.preventDefault(); setMenuOpen(v => !v); };
     return (
         <div className="grid grid-cols-[1fr_1fr_1fr_auto] gap-x-1">
 
-        <RowItem registered={register(`fields.${idx}.disp`)} errors={errors} control={control} />
-        <RowItem registered={register(`fields.${idx}.value`)} errors={errors} control={control} />
-        <RowItem registered={register(`fields.${idx}.type`)} errors={errors} control={control} />
+            <RowItem registered={register(`fields.${idx}.disp`)} errors={errors} control={control} />
+            <RowItem registered={register(`fields.${idx}.value`)} errors={errors} control={control} />
+            <RowItem registered={register(`fields.${idx}.type`)} errors={errors} control={control} />
 
-        {/* <button onClick={(event) => { event.preventDefault(); remove(idx); }}> */}
-        <button className="relative" onClick={(event) => { event.preventDefault(); setMenuOpen(v => !v); }}>
-            <IconMenu className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" />
-            {menuOpen &&
-                <MenuButtons />
-            }
-        </button>
-    </div>
+            {/* <button onClick={(event) => { event.preventDefault(); remove(idx); }}> */}
+            <button className="relative" onClick={(event) => { event.preventDefault(); setMenuOpen(v => !v); }}>
+                <IconMenu className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" />
+                {menuOpen &&
+                    <MenuButtons onClose={onClose} {...menuState} />
+                }
+            </button>
+        </div>
     );
 }
 
-function MenuButtons() {
+type MenuState = {
+    // onClose: (event: React.MouseEvent) => void;
+    onDelete: () => void;
+    onUp: () => void;
+    onDn: () => void;
+    hasUp: boolean;
+    hasDn: boolean;
+};
+
+function MenuButtons({ onClose, onDelete, onUp, onDn, hasUp, hasDn }: MenuState & { onClose: (event: React.MouseEvent) => void; }) {
     return (
         <div className="absolute right-0 top-0 py-1 bg-yellow-500 flex">
-            {/* <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" /> */}
             <IconArrowUp className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" />
             <IconArrowDown className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" />
             <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" />
+            <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" />
         </div>
     );
 }
@@ -44,9 +63,19 @@ export function GroupDynamicFields({ register, errors, control }: { register: Us
     const { fields, append, remove } = useFieldArray({ control, name: 'fields', });
     return (<>
         <div className="grid gap-y-1">
-            {fields.map((field, idx) => (
-                <Row field={field} idx={idx} register={register} errors={errors} control={control} key={field.id} />
-            ))}
+            {fields.map((field, idx) => {
+                const menuState: MenuState = {
+                    // onClose: (event: React.MouseEvent) => { event.preventDefault(); setMenuOpen(v => !v); },
+                    onDelete: () => { },
+                    onUp: () => { },
+                    onDn: () => { },
+                    hasUp: true,
+                    hasDn: true,
+                };
+                return <Row field={field} idx={idx} menuState={menuState} register={register} errors={errors} control={control} key={field.id} />;
+            }
+
+            )}
         </div>
 
         <button
