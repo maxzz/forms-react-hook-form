@@ -31,7 +31,11 @@ function Row({ field, idx, menuState, register, errors, control }: RowParams) {
 
             {/* <button onClick={(event) => { event.preventDefault(); remove(idx); }}> */}
             <button className="relative">
-                <IconMenu className="p-1 w-5 h-5 hover:text-white hover:bg-yellow-500 rounded" onClick={(event) => { event.preventDefault(); setMenuOpen(v => !v); }} />
+                <IconMenu
+                    className="p-1 w-5 h-5 hover:text-white hover:bg-yellow-500 rounded"
+                    title="Close popup"
+                    onClick={(event) => { event.preventDefault(); setMenuOpen(v => !v); }}
+                />
                 {menuOpen &&
                     <MenuButtons onClose={onClose} {...menuState} />
                 }
@@ -51,11 +55,11 @@ type MenuState = {
 
 function MenuButtons({ onClose, onDelete, onUp, onDn, hasUp, hasDn }: MenuState & { onClose: (event: React.MouseEvent) => void; }) {
     return (
-        <div className="absolute right-0 top-0 py-1 bg-yellow-500 flex">
-            <IconArrowUp className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasUp && "invisible")} onClick={onUp} />
-            <IconArrowDown className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasDn && "invisible")} onClick={onDn} />
-            <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" onClick={onDelete} />
-            <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" onClick={onClose} />
+        <div className="absolute -right-2 top-0 px-2 py-1 bg-yellow-500 border-gray-900/20 border shadow rounded-sm flex">
+            <IconArrowUp className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasUp && "invisible")} title="Move field up" onClick={onUp} />
+            <IconArrowDown className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasDn && "invisible")} title="Move field down" onClick={onDn} />
+            <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" title="Delete field" onClick={onDelete} />
+            <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" title="Close popup" onClick={onClose} />
         </div>
     );
 }
