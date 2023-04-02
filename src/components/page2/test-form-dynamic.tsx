@@ -2,10 +2,11 @@ import { UseFormRegister, FieldErrors, Control, useFieldArray, UseFormRegisterRe
 import { Form2Inputs } from "./controls-data";
 import { IconArrowDown, IconArrowUp, IconClose, IconMenu, IconTrash } from "../ui/icons";
 import { useState } from "react";
+import { classNames } from "@/utils";
 
 function RowItem({ registered, errors, control }: { registered: UseFormRegisterReturn; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
     return (
-        <input className="px-2 py-1 w-full text-sm rounded" {...registered} />
+        <input className="px-2 py-1 w-full text-sm rounded" autoComplete="off" list="autocompleteOff" spellCheck="false" {...registered} />
     );
 }
 
@@ -29,8 +30,8 @@ function Row({ field, idx, menuState, register, errors, control }: RowParams) {
             <RowItem registered={register(`fields.${idx}.type`)} errors={errors} control={control} />
 
             {/* <button onClick={(event) => { event.preventDefault(); remove(idx); }}> */}
-            <button className="relative" onClick={(event) => { event.preventDefault(); setMenuOpen(v => !v); }}>
-                <IconMenu className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" />
+            <button className="relative">
+                <IconMenu className="p-1 w-5 h-5 hover:text-white hover:bg-yellow-500 rounded" onClick={(event) => { event.preventDefault(); setMenuOpen(v => !v); }} />
                 {menuOpen &&
                     <MenuButtons onClose={onClose} {...menuState} />
                 }
@@ -41,9 +42,9 @@ function Row({ field, idx, menuState, register, errors, control }: RowParams) {
 
 type MenuState = {
     // onClose: (event: React.MouseEvent) => void;
-    onDelete: () => void;
-    onUp: () => void;
-    onDn: () => void;
+    onDelete: (event: React.MouseEvent) => void;
+    onUp: (event: React.MouseEvent) => void;
+    onDn: (event: React.MouseEvent) => void;
     hasUp: boolean;
     hasDn: boolean;
 };
@@ -51,10 +52,10 @@ type MenuState = {
 function MenuButtons({ onClose, onDelete, onUp, onDn, hasUp, hasDn }: MenuState & { onClose: (event: React.MouseEvent) => void; }) {
     return (
         <div className="absolute right-0 top-0 py-1 bg-yellow-500 flex">
-            <IconArrowUp className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" />
-            <IconArrowDown className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" />
-            <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" />
-            <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" />
+            <IconArrowUp className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasUp && "invisible")} onClick={onUp} />
+            <IconArrowDown className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasDn && "invisible")} onClick={onDn} />
+            <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" onClick={onDelete} />
+            <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" onClick={onClose} />
         </div>
     );
 }
@@ -66,11 +67,11 @@ export function GroupDynamicFields({ register, errors, control }: { register: Us
             {fields.map((field, idx) => {
                 const menuState: MenuState = {
                     // onClose: (event: React.MouseEvent) => { event.preventDefault(); setMenuOpen(v => !v); },
-                    onDelete: () => { },
-                    onUp: () => { },
-                    onDn: () => { },
-                    hasUp: true,
-                    hasDn: true,
+                    onDelete: (event: React.MouseEvent) => { event.preventDefault(); remove(idx); },
+                    onUp: (event: React.MouseEvent) => { event.preventDefault(); },
+                    onDn: (event: React.MouseEvent) => { event.preventDefault(); },
+                    hasUp: idx > 0,
+                    hasDn: idx < fields.length - 1,
                 };
                 return <Row field={field} idx={idx} menuState={menuState} register={register} errors={errors} control={control} key={field.id} />;
             }
