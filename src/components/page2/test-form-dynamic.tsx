@@ -29,7 +29,6 @@ function Row({ field, idx, menuState, register, errors, control }: RowParams) {
             <RowItem registered={register(`fields.${idx}.value`)} errors={errors} control={control} />
             <RowItem registered={register(`fields.${idx}.type`)} errors={errors} control={control} />
 
-            {/* <button onClick={(event) => { event.preventDefault(); remove(idx); }}> */}
             <button className="relative">
                 <IconMenu
                     className="p-1 w-5 h-5 hover:text-white hover:bg-yellow-500 rounded"
@@ -44,7 +43,6 @@ function Row({ field, idx, menuState, register, errors, control }: RowParams) {
 }
 
 type MenuState = {
-    // onClose: (event: React.MouseEvent) => void;
     onDelete: (event: React.MouseEvent) => void;
     onUp: (event: React.MouseEvent) => void;
     onDn: (event: React.MouseEvent) => void;
@@ -52,7 +50,7 @@ type MenuState = {
     hasDn: boolean;
 };
 
-function MenuButtons({ onClose, onDelete, onUp, onDn, hasUp, hasDn }: MenuState & { onClose: (event: React.MouseEvent) => void; }) {
+function MenuButtons({ onClose, onDelete, onUp, onDn, hasUp, hasDn }: { onClose: (event: React.MouseEvent) => void; } & MenuState) {
     return (
         <div className="absolute -right-2 top-0 px-2 py-1 bg-yellow-500 border-gray-900/20 border shadow rounded-sm flex">
             <IconArrowUp className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasUp && "invisible")} title="Move field up" onClick={onUp} />
@@ -69,7 +67,6 @@ export function GroupDynamicFields({ register, errors, control }: { register: Us
         <div className="grid gap-y-1">
             {fields.map((field, idx) => {
                 const menuState: MenuState = {
-                    // onClose: (event: React.MouseEvent) => { event.preventDefault(); setMenuOpen(v => !v); },
                     onDelete: (event: React.MouseEvent) => { event.preventDefault(); remove(idx); },
                     onUp: (event: React.MouseEvent) => { event.preventDefault(); idx > 0 && swap(idx - 1, idx); },
                     onDn: (event: React.MouseEvent) => { event.preventDefault(); idx < fields.length - 1 && swap(idx, idx + 1); },
@@ -95,3 +92,6 @@ export function GroupDynamicFields({ register, errors, control }: { register: Us
         >Add Field</button>
     </>);
 }
+
+//TODO: click outside
+//TODO: validation
