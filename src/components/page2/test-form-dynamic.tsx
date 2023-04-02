@@ -33,7 +33,6 @@ function Row({ field, idx, menuState, register, errors, control }: RowParams) {
             <button className="relative">
                 <IconMenu
                     className="p-1 w-5 h-5 hover:text-white hover:bg-yellow-500 rounded"
-                    title="Close popup"
                     onClick={(event) => { event.preventDefault(); setMenuOpen(v => !v); }}
                 />
                 {menuOpen &&
@@ -59,21 +58,21 @@ function MenuButtons({ onClose, onDelete, onUp, onDn, hasUp, hasDn }: MenuState 
             <IconArrowUp className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasUp && "invisible")} title="Move field up" onClick={onUp} />
             <IconArrowDown className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasDn && "invisible")} title="Move field down" onClick={onDn} />
             <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" title="Delete field" onClick={onDelete} />
-            <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" title="Close popup" onClick={onClose} />
+            <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" onClick={onClose} />
         </div>
     );
 }
 
 export function GroupDynamicFields({ register, errors, control }: { register: UseFormRegister<Form2Inputs>; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
-    const { fields, append, remove } = useFieldArray({ control, name: 'fields', });
+    const { fields, append, remove, swap } = useFieldArray({ control, name: 'fields', });
     return (<>
         <div className="grid gap-y-1">
             {fields.map((field, idx) => {
                 const menuState: MenuState = {
                     // onClose: (event: React.MouseEvent) => { event.preventDefault(); setMenuOpen(v => !v); },
                     onDelete: (event: React.MouseEvent) => { event.preventDefault(); remove(idx); },
-                    onUp: (event: React.MouseEvent) => { event.preventDefault(); },
-                    onDn: (event: React.MouseEvent) => { event.preventDefault(); },
+                    onUp: (event: React.MouseEvent) => { event.preventDefault(); idx > 0 && swap(idx - 1, idx); },
+                    onDn: (event: React.MouseEvent) => { event.preventDefault(); idx < fields.length - 1 && swap(idx, idx + 1); },
                     hasUp: idx > 0,
                     hasDn: idx < fields.length - 1,
                 };
