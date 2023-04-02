@@ -1,8 +1,9 @@
 import { UseFormRegister, FieldErrors, Control, useFieldArray, UseFormRegisterReturn, FieldArrayWithId } from "react-hook-form";
 import { Form2Inputs } from "./controls-data";
 import { IconArrowDown, IconArrowUp, IconClose, IconMenu, IconTrash } from "../ui/icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { classNames } from "@/utils";
+import { useClickAway } from "react-use";
 
 function RowItem({ registered, errors, control }: { registered: UseFormRegisterReturn; errors: FieldErrors<Form2Inputs>; control: Control<Form2Inputs, any>; }) {
     return (
@@ -22,6 +23,8 @@ type RowParams = {
 function Row({ field, idx, menuState, register, errors, control }: RowParams) {
     const [menuOpen, setMenuOpen] = useState(false);
     const onClose = (event: React.MouseEvent) => { event.preventDefault(); setMenuOpen(v => !v); };
+    const btnRef = useRef(null);
+    useClickAway(btnRef, () => { setMenuOpen(false); });
     return (
         <div className="grid grid-cols-[1fr_1fr_1fr_auto] gap-x-1">
 
@@ -29,7 +32,7 @@ function Row({ field, idx, menuState, register, errors, control }: RowParams) {
             <RowItem registered={register(`fields.${idx}.value`)} errors={errors} control={control} />
             <RowItem registered={register(`fields.${idx}.type`)} errors={errors} control={control} />
 
-            <button className="relative">
+            <button ref={btnRef} className="relative">
                 <IconMenu
                     className="p-1 w-5 h-5 hover:text-white hover:bg-yellow-500 rounded"
                     onClick={(event) => { event.preventDefault(); setMenuOpen(v => !v); }}
@@ -53,10 +56,10 @@ type MenuState = {
 function MenuButtons({ onClose, onDelete, onUp, onDn, hasUp, hasDn }: { onClose: (event: React.MouseEvent) => void; } & MenuState) {
     return (
         <div className="absolute -right-2 top-0 px-2 py-1 bg-yellow-500 border-gray-900/20 border shadow rounded-sm flex">
-            <IconArrowUp className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasUp && "invisible")} title="Move field up" onClick={onUp} />
-            <IconArrowDown className={classNames("p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded", !hasDn && "invisible")} title="Move field down" onClick={onDn} />
-            <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-orange-600 rounded" title="Delete field" onClick={onDelete} />
-            <IconClose className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" onClick={onClose} />
+            <IconArrowUp className={classNames("p-1 w-5 h-5 hover:bg-yellow-400 rounded", !hasUp && "invisible")} title="Move field up" onClick={onUp} />
+            <IconArrowDown className={classNames("p-1 w-5 h-5 hover:bg-yellow-400 rounded", !hasDn && "invisible")} title="Move field down" onClick={onDn} />
+            <IconTrash className="p-1 w-5 h-5 hover:text-white hover:bg-red-600 rounded" title="Delete field" onClick={onDelete} />
+            <IconClose className="p-1 w-5 h-5 hover:bg-yellow-400 rounded" onClick={onClose} />
         </div>
     );
 }
@@ -93,5 +96,6 @@ export function GroupDynamicFields({ register, errors, control }: { register: Us
     </>);
 }
 
-//TODO: click outside
+//TODO: click outside - done
 //TODO: validation
+//TODO: focus on delete/swap - no need
