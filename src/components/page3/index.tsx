@@ -1,8 +1,8 @@
-import { ReactPortal } from '../page2-controls';
+import { ReactPortal } from '../page2-shared';
 import { classNames } from "@/utils";
 import { appUi, useSnapshot } from "@/store";
 import { Form3Inputs } from "./controls-data";
-import { Form2 } from "../page2/test-form";
+import { Form2 } from "../page2-shared/test-form";
 
 export function Page3_Form() {
     const store = useSnapshot(appUi);

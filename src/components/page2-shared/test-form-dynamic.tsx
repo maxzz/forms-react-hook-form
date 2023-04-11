@@ -1,5 +1,5 @@
 import { UseFormRegister, FieldErrors, Control, useFieldArray, UseFormRegisterReturn, FieldArrayWithId } from "react-hook-form";
-import { Form2Inputs } from "./controls-data";
+import { Form2Inputs } from "../page2/controls-data";
 import { IconArrowDown, IconArrowUp, IconClose, IconMenu, IconTrash } from "../ui/icons";
 import { useRef, useState } from "react";
 import { classNames } from "@/utils";

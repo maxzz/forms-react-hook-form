@@ -1,4 +1,4 @@
-import { SelectOption } from "../page2-controls";
+import { SelectOption } from "../page2-shared";
 
 export type FieldInForm = {
     type: string;

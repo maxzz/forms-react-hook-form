@@ -1,8 +1,8 @@
 import { HTMLAttributes } from "react";
 import { Control, FieldErrors, useForm, UseFormRegister, useWatch } from "react-hook-form";
 import { classNames } from "@/utils";
-import { Button, DebugDisplay, InputFloat, Radio, Select } from "../page2-controls";
-import { Form2Inputs, selectOptions } from "./controls-data";
+import { Button, DebugDisplay, InputFloat, Radio, Select } from ".";
+import { Form2Inputs, selectOptions } from "../page2/controls-data";
 import { IconClose, IconStar, IconVessel7 } from "../ui/icons";
 import { GroupDynamicFields } from "./test-form-dynamic";
 

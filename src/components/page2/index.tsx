@@ -1,6 +1,6 @@
 import { Form2Inputs } from "./controls-data";
 import { appUi, useSnapshot } from "@/store";
-import { Form2 } from "./test-form";
+import { Form2 } from "../page2-shared/test-form";
 
 export function Page2_Form() {
     const store = useSnapshot(appUi);
